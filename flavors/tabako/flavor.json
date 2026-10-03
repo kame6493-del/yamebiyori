@@ -1,0 +1,20 @@
+{
+  "key": "tabako",
+  "dir": "tabako",
+  "appId": "jp.yamebiyori.tabako",
+  "appName": "やめ日和 たばこ",
+  "brandSub": "たばこをやめる記録",
+  "storeTitle": "やめ日和 禁煙カウンター・卒煙記録",
+  "kind": "smoke",
+  "thing": "たばこ",
+  "verbUse": "吸った",
+  "verbCrave": "吸いたくなった",
+  "craveNoun": "吸いたい気持ち",
+  "stopNoun": "禁煙",
+  "productId": "yamebiyori_tabako_full",
+  "entitlement": "full",
+  "revenuecat": { "ios": "", "android": "" },
+  "theme": "sora",
+  "paper": "#f3f6f7",
+  "accent": "#2d5d8a"
+}

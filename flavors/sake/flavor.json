@@ -1,0 +1,20 @@
+{
+  "key": "sake",
+  "dir": "sake",
+  "appId": "jp.yamebiyori.sake",
+  "appName": "やめ日和 お酒",
+  "brandSub": "お酒をやめる・へらす記録",
+  "storeTitle": "やめ日和 禁酒・断酒カウンター",
+  "kind": "alcohol",
+  "thing": "お酒",
+  "verbUse": "飲んだ",
+  "verbCrave": "飲みたくなった",
+  "craveNoun": "飲みたい気持ち",
+  "stopNoun": "禁酒",
+  "productId": "yamebiyori_sake_full",
+  "entitlement": "full",
+  "revenuecat": { "ios": "", "android": "" },
+  "theme": "kinari",
+  "paper": "#f7f4ec",
+  "accent": "#2f6f73"
+}

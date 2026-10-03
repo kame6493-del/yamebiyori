@@ -1,0 +1,728 @@
+   
+1 
+ 
+健康に配慮した飲酒に関するガイドライン 
+ 
+ 
+１ 趣旨 
+アルコール健康障害対策基本法（平成 25 年法律第 109 号）第 12 条第１項に基づき、
+アルコール健康障害対策の総合的かつ計画的な推進を図るために策定されたアルコール
+健康障害対策推進基本計画の第２期計画（以下「第２期計画」という。）においては、そ
+の基本的施策として、飲酒に伴うリスクに関する知識の普及の推進を図るために、国民
+のそれぞれの状況に応じた適切な飲酒量・飲酒行動の判断に資する「飲酒ガイドライン
+（以下「本ガイドライン」という。）」を作成することとされています。 
+本ガイドラインは、アルコール健康障害の発生を防止するため、国民一人ひとりがア
+ルコールに関連する問題への関心と理解を深め、自らの予防に必要な注意を払って不適
+切な飲酒を減らすために活用されることを目的としています。 
+なお、本ガイドラインでは、飲酒に係る留意事項等を示しておりますが、アルコール
+による影響には個人差があり、また、その時の体調等によっても影響が変わり得るもの
+です。 
+お酒は、その伝統と文化が国民の生活に深く浸透している一方で、不適切な飲酒は健
+康障害等につながります。飲酒する習慣がない方等に対して無理に飲酒を勧めることは
+避けるべきであることにも留意してください。 
+ 
+２ 本ガイドラインの内容 
+本ガイドラインは、基礎疾患等がない 20 歳以上の成人を中心に、飲酒による身体等へ
+の影響について、年齢・性別・体質等による違いや、飲酒による疾病・行動に関するリ
+スクなどを分かりやすく伝え、その上で、考慮すべき飲酒量（純アルコール量）や配慮
+のある飲酒の仕方、飲酒の際に留意していただきたい事項（避けるべき飲酒等）を示す
+ことにより、飲酒や飲酒後の行動の判断等に資することを目指すものとします。 
+※なお、本ガイドラインは、科学的知見の蓄積状況等を踏まえ、必要に応じて見直しを行いま
+す。 
+ 
+３ アルコールの代謝と飲酒による身体等への影響について 
+（１）アルコールの代謝 
+  飲酒した際、飲んだお酒に含まれるアルコールの大半は、小腸から吸収され、血液
+を通じて全身を巡り、肝臓で分解されます。アルコールの分解には、体内の分解酵素
+と呼ばれる物質等が関与しています（※）が、体質的に分解酵素のはたらきが弱いな
+どの場合には、少量の飲酒で体調が悪くなることもあります。 
+※肝臓で、アルコールはアセトアルデヒドに分解され、さらに酢酸へと分解されます。酢酸
+は筋肉や心臓に移動してさらに分解され、最終的に炭酸ガスと水になります。 
+ 
+（２）飲酒による身体等への影響 
+アルコールは血液を通じて全身を巡り、全身の臓器に影響を与えるため、飲みすぎ
+た場合には、いろいろな臓器に病気が起こる可能性があります。飲酒による影響には
+個人差があり、例えば年齢、性別、体質等の違いによって、それぞれ受ける影響が異
+   
+2 
+ 
+なります。主な身体への影響として、以下のような特有の状態変化や固有のリスクな
+どが生じる可能性があります。なお、体調など個人のそのときの状態にも左右されま
+す。 
+① 年齢の違いによる影響 
+高齢者は若い時と比べて、体内の水分量の減少等{1}で同じ量のアルコールでも酔い 
+やすくなり、飲酒量が一定量を超えると認知症の発症の可能性が高まります[2]。あわ
+せて、飲酒による転倒・骨折{3,4,5}、筋肉の減少（サルコペニア（※）等{6,7}）の危険
+性が高まります。 
+※サルコペニアとは、加齢に伴う骨格筋量低下に加え、筋力及び/又は身体機能が低下した状態
+のことです。 
+10 歳代はもちろん 20 歳代の若年者についても、脳の発達{8,9}の途中であり、多量 
+飲酒によって脳の機能が落ちるとのデータがあるほか{10}、健康問題（高血圧等）の 
+リスクが高まる可能性もあります{11}。  
+② 性別の違いによる影響 
+女性は、一般的に、男性と比較して体内の水分量が少なく{12}、分解できるアルコ 
+ール量も男性に比べて少ないこと{13}や、エストロゲン（女性ホルモンの一種）等の 
+はたらきにより、アルコールの影響を受けやすいこと{14,15,16}が知られています。こ 
+のため、女性は、男性に比べて少ない量かつ短い期間での飲酒でアルコール関連肝硬 
+変になる場合がある{17,18}など、アルコールによる身体への影響が大きく現れる可能 
+性{19,20}もあります。 
+③ 体質の違いによる影響 
+アルコールを分解する体内の分解酵素のはたらきの強い・弱い（※）などが、個人 
+によって大きく異なります。分解酵素のはたらきが弱い場合などには、飲酒により、 
+顔が赤くなったり、動悸や吐き気がする状態になることがあります。（これを「フラ 
+ッシング反応」と言います。） 
+※分解酵素のはたらきの強弱は、遺伝子によるものと言われています。東アジアではこの 
+分解酵素が弱く上記のようなフラッシング反応を起こす方々が一定数存在し、日本では 
+41%程度いると言われています。{21} 
+そのような人が、長年飲酒して、不快にならずに飲酒できるようになった場合で 
+も、アルコールを原因とする口の中のがんや食道がん等のリスクが非常に高くなる 
+といったデータ{22,23,24}がありますので注意が必要です。 
+ 
+（３）過度な飲酒による影響 
+過度な飲酒や、飲酒後の行動によって、以下のようなリスクが高まる可能性があり 
+ます。 
+① 疾病発症等のリスク 
+    急激に多量のアルコールを摂取すると急性アルコール中毒（意識レベルが低下し、
+嘔吐、呼吸状態が悪化するなど危険な状態になります。)になる可能性があります。 
+また、長期にわたって大量に飲酒をすることによって、アルコール依存症(※）、 
+生活習慣病、肝疾患、がん等の疾病が発症しやすくなります。 
+※アルコール依存症とは、大量のお酒を長期にわたって飲み続けることが主な原因で発症す 
+る精神疾患の一つです。お酒をやめたくてもやめることができない、飲む量をコントロー 
+ルできない等の症状により、仕事や家庭など生活面にも支障が出てくることがあります。 
+ 
+   
+3 
+ 
+② 行動面のリスク 
+過度なアルコール摂取により運動機能や集中力の低下等が生じ、使用することで
+危険を伴う機器（例えば、鋸等の工具類、草刈り機等の電動機、火気を伴う器具類
+等）の利用や高所での作業による事故などの発生、飲酒後に適切ではない行動をと
+ることによっての怪我や他人とのトラブル(例えば、路上や公共交通機関でのトラブ
+ル、暴力行為等)、紛失物の発生（例えば、金銭等や機密書類、ノートパソコンやＵ
+ＳＢメモリ等の紛失）などが考えられます。 
+ 
+４ 飲酒量（純アルコール量）と健康に配慮した飲酒の仕方等について 
+  上記のようなアルコールのリスクを理解した上で、次に示す純アルコール量に着目し
+ながら、自分に合った飲酒量を決めて、健康に配慮した飲酒を心がけることが大切です｡ 
+ 
+（１）飲酒量の把握の仕方 
+お酒に含まれる純アルコール量は、「純アルコール量（ｇ）＝摂取量（ml）×アルコ
+ール濃度（度数/100）×0.8（アルコールの比重）」で表すことができ、食品のエネル
+ギー（kcal）のようにその量を数値化できます。飲酒をする場合には、お酒に含まれ
+る純アルコール量（ｇ）を認識し、自身のアルコール摂取量を把握することで、例え
+ば疾病発症等のリスクを避けるための具体的な目標設定を行うなど、自身の健康管理
+にも活用することができます。単にお酒の量（ml）だけでなく、お酒に含まれる純ア
+ルコール量（g）について着目することは重要です。 
+(お酒に含まれる純アルコール量の算出式) 
+    摂取量(ml) × アルコール濃度（度数/100）× 0.8（アルコールの比重） 
+例: ビール 500ml（5％）の場合の純アルコール量 
+500(ml) × 0.05 × 0.8 = 20(g)  
+ 
+（２）飲酒量と健康リスク 
+世界保健機関（WHO）では、アルコールの有害な使用を低減するための世界戦略{25}を
+示しており、また、循環器疾患やがん等の疾患の予防コントロールのため、アルコー
+ル有害使用の削減に関する目標なども含めた行動計画{26}を発表しています。さらに、
+飲酒量（純アルコール量）が少ないほど、飲酒によるリスクが少なくなるという報告
+もあります{27,28,29}。 
+個々人が疾患などの発症リスクにも着目するなどして、健康に配慮することが重要
+であると考えられます。例えば、高血圧や男性の食道がん、女性の出血性脳卒中など
+の場合は、たとえ少量であっても飲酒自体が発症リスクを上げてしまうこと、大腸が
+んの場合は、1 日当たり 20ｇ程度（週 150ｇ）以上の量の飲酒を続けると発症の可能性
+が上がる等の結果を示した研究があります。これらの研究結果に基づく疾病毎の発症
+リスクが上がる飲酒量（純アルコール量）については、表１に示したものが参考とな
+ります。 
+   
+4 
+ 
+飲酒による疾患への影響については個人差があります。従って、これらよりも少な
+い量の飲酒を心がければ、発症しないとまでは言えませんが、当該疾患にかかる可能
+性を減らすことができると考えられます。 
+なお、飲酒の影響を受けやすい体質を考慮する必要がある場合などには、より少な
+い飲酒量（純アルコール量）とすることが望まれます。飲酒は疾患によっても、臓器
+によっても影響が異なり、個人差があります。かかりつけ医等がいる場合には、飲酒
+についての相談をすることも有用です。飲酒量（純アルコール量）が多くなること
+は、病気や怪我の可能性を高める{30,31}だけでなく、飲酒後の危険な行動につながる可
+能性も高くなります。これらを避けるよう、飲酒量（純アルコール量）に注意してい
+くことが重要です。  
+その他の参考として、国内では、第２期計画において、「生活習慣病のリスクを高め
+る量（１日当たりの純アルコール摂取量が男性 40ｇ以上、女性 20ｇ以上）を飲酒して
+いる者の割合を男性 13.0％、女性 6.4％まで減少させること」（※）を重点目標として示
+しています。 
+また、令和６年度開始予定の健康日本 21（第三次）では、「生活習慣病（ＮＣＤｓ）
+のリスクを高める量（１日当たりの純アルコール摂取量が男性 40ｇ以上、女性 20ｇ以
+上）を飲酒している者の減少」（※）を目標とし、男女合わせた全体の目標値として 10％
+を設定し、健康づくりの取組を推進することとしています。 
+※これらの量の飲酒をしている者の減少を目標としたものです。なお、これらの量は個々人
+の許容量を示したものではありません。 
+（参考）海外で作成されたガイドラインでは、表２にある通り、１日 20ｇから 40ｇ程度の飲
+酒量（純アルコール量）など、各国毎に異なった量も示されています。 
+ 
+（３）健康に配慮した飲酒の仕方等について 
+飲酒をする場合においても、様々な危険を避けるために、例えば、以下のような配
+慮等をすることが考えられます。これらにも留意することが重要です。 
+① 自らの飲酒状況等を把握する 
+自分の状態に応じた飲酒により、飲酒によって生じるリスクを減らすことが重要です。 
+医師等へ相談したり、AUDIT（問題のある飲酒をしている人を把握するために世界保健機関
+（WHO）が作成したスクリーニングテスト。飲酒問題の早期発見等のため、10 項目の簡易な
+質問でアルコール関連問題の重症度の測定を行うものです。）等を参考に自らの飲酒の習慣
+を把握することなどが考えられます。 
+② あらかじめ量を決めて飲酒をする{32} 
+自ら飲む量を定めることで、過度な飲酒を避けるなど飲酒行動の改善につながると言わ 
+れています。行事・イベントなどの場で飲酒する場合も、各自が何をどれくらい飲むかなど 
+を４の（２）も参考にそれぞれ自分で決めて飲むことが大切です。 
+③ 飲酒前又は飲酒中に食事をとる 
+血中のアルコール濃度を上がりにくくし、お酒に酔いにくくする効果があります。 
+④ 飲酒の合間に水（又は炭酸水）を飲むなど、アルコールをゆっくり分解・吸収でき
+るようにする（水などを混ぜてアルコール度数を低くして飲酒をする、少しずつ飲
+酒する、アルコールの入っていない飲み物を選ぶなど） 
+飲む量に占める純アルコールの量を減らす効果があります。 
+⑤ 一週間のうち、飲酒をしない日を設ける（毎日飲み続けるといった継続しての飲酒
+を避ける）  
+   
+5 
+ 
+毎日飲酒を続けた場合、アルコール依存症の発症につながる可能性があります。一週間
+の純アルコール摂取量を減らすために、定期的に飲酒をしないようにするなど配慮が必要
+です。 
+ 
+５ 飲酒に係る留意事項 
+（１）重要な禁止事項 
+法律で禁止されている場合や、特殊な状態で飲酒を避けることが必要な場合など、
+以下のようなものがあります。 
+① 法律違反に当たる場合等 
+・酒気帯び運転等（酒気帯び運転をさせることを含む） 
+飲酒時には、安全運転に必要な情報処理能力、注意力、判断力等が低下します。 
+・20 歳未満の飲酒（20 歳未満に飲酒させることを含む） 
+脳の発育に悪影響を及ぼし、若い頃からの飲酒によって依存症になる危険性も上がり 
+ます{33,34,35}。 
+・飲酒による不適切な状態での動作や判断によって事故や事件を招いてしまう行為
+（フォークリフト等の機械の操作、公衆への迷惑行為等） 
+② 特定の状態にあって飲酒を避けることが必要な場合等 
+・妊娠中・授乳期中の飲酒{36} 
+妊娠中の飲酒により、胎児へ胎児性アルコール症候群等をもたらす可能性がありま 
+す。授乳期中などには、家庭内などの周囲の理解や配慮が必要です。 
+・体質的にお酒を受け付けられない人（アルコールを分解する酵素が非常に弱い
+人等）の飲酒{37} 
+アルコールを分解する酵素が非常に弱い人は、ごく少量の飲酒でも、強い動悸、急に  
+意識を失うなどの反応が起こることがあり危険です。 
+ 
+（２）避けるべき飲酒等について 
+   避けるべき飲酒や飲酒に関連した行動には、例えば以下のようなものが挙げられま
+す。飲酒をする場合には、自分が現在どのような状況にあるのかを確認し、飲酒に適
+するかを個別に判断していく必要があります。 
+① 一時多量飲酒（特に短時間の多量飲酒） 
+様々な身体疾患の発症や、急性アルコール中毒を引き起こす可能性があります。一時多
+量飲酒（1 回の飲酒機会で純アルコール摂取量60ｇ以上）は、外傷の危険性も高めるもの
+であり{27}、避けるべきです。 
+② 他人への飲酒の強要等 
+飲酒は様々なリスクを伴う可能性があるものであり、他人に無理な飲酒を勧めることは
+避けるべきです。併せて、飲酒を契機とした暴力や暴言・ハラスメントなどにつながらな
+いように配慮しなければなりません。 
+③ 不安{38}や不眠{39}を解消するための飲酒 
+不安の解消のための飲酒を続けることによって依存症になる可能性を高めたり、飲酒に
+より眠りが浅くなり睡眠リズムを乱す等の支障をきたすことがあります。 
+④ 病気等療養中の飲酒や服薬後の飲酒（病気等の種類や薬の性質により変わります） 
+病気等の療養中は、過度な飲酒で免疫力がより低下し、感染症にかかりやすくなる等の
+可能性があります{40}。また、服薬後に飲酒した場合は、薬の効果が弱まったり、副作用が
+   
+6 
+ 
+生じることがあります{41}。飲酒の可否、量や回数を減らすべきか等の判断は、主治医に尋
+ねる必要があります。 
+⑤ 飲酒中又は飲酒後における運動・入浴などの体に負担のかかる行動{42,43} 
+飲酒により血圧の変動が強まることなどによって、心筋梗塞などを引き起こす可能性
+や、転倒などにより身体の損傷を引き起こす可能性があります。 
+ 
+（表１）我が国における疾病別の発症リスクと飲酒量（純アルコール量）{参考文献} 
+ 疾病名 飲酒量（純アルコール量（ｇ）） 
+男性 女性 
+研究結果 （参考） 研究結果 （参考） 
+１ 脳卒中（出血性） 150g/週 （20g/日） 0g＜  
+２ 脳卒中（脳梗塞） 300g/週 （40g/日） 75g/週 （11g/日） 
+３ 虚血性心疾患・心筋梗塞 ※  ※  
+４ 高血圧 0g＜  0g＜  
+５ 胃がん 0g＜  150g/週 （20g/日） 
+６ 肺がん(喫煙者) 300g/週 （40g/日） データなし  
+７ 肺がん(非喫煙者) 関連なし  データなし  
+８ 大腸がん 150g/週 （20g/日） 150g/週 （20g/日） 
+９ 食道がん 0g＜  データなし  
+10 肝がん 450g/週 （60g/日） 150g/週 （20g/日） 
+11 前立腺がん（進行がん） 150g/週 （20g/日） データなし  
+12 乳がん データなし  100g/週 （14g/日） 
+ 
+注：上記の飲酒量(純アルコール量)の数値のうち、「研究結果」の欄の数値については、参考文献に基
+づく研究結果によるもので、これ以上の飲酒をすると発症等のリスクが上がると考えられるもの。
+「参考」の欄にある数値については、研究結果の数値を元に、仮に７で除した場合の参考値（概
+数）。「0g＜」は少しでも飲酒をするとリスクが上がると考えられるもの。「関連なし」は飲酒量(純
+アルコール量)とは関連が無いと考えられるもの。「データなし」は飲酒量(純アルコール量)と関連
+する研究データがないもの。「※」は現在研究中のもの。なお、これらの飲酒量(純アルコール量)に
+ついては、すべて日本人に対する研究に基づくものとなります。 
+  
+   
+7 
+ 
+（表２）海外のガイドラインに記載のある飲酒量(純アルコール量）{参考情報} 
+ 国名 記載のある飲酒量（純アルコール量（ｇ）） 
+男性 女性 
+１ アイルランド 170 g/週 未満 110 g/週 未満 
+２ アメリカ 28 g/日 14 g/日 
+３ イギリス 112 g/週 未満 112 g/週 未満 
+４ イタリア 24 g/日まで(21～64 歳) 
+12 g/日まで(18～20,65 歳以上)  
+12 g/日まで 
+５ オーストラリア 100 g/週 未満 100 g/週 未満 
+６ オーストリア 24 g/日 16 g/日 
+７ カナダ 26 g/週 未満 13 g/週 未満 
+８ 韓国 40 g/日 20 g/日 
+９ シンガポール 26 g/日 13 g/日 
+10 スウェーデン 数値なし 数値なし 
+11 ニュージーランド 30 g/日、150 g/週以下 20 g/日、100 g/週以下 
+12 ロシア 30 g/日 20 g/日 
+ 
+注：海外のガイドラインに記載のある飲酒量は、適度となる飲酒やリスクが低いとされる飲酒量等、
+各国ごとにその位置づけが異なるものであるため、単純に比較することはできません。 
+ 
+  
+   
+8 
+ 
+（参考文献） 
+高齢者 
+１． Bommersbach TJ, Lapid MI, Rummans TA, Morse RM: Geriatric Alcohol Use   
+Disorder: A Review for Primary Care Physicians. Mayo Clin Proc. 2015; 90(5):  
+659-666. （アルコールと高齢者の水分量低下） 
+２． Mukamal KJ, Kuller LH, Fitzpatrick AL, Longstreth Jr WT, Mittleman 
+MA, Siscovick DS: Prospective study of alcohol consumption and risk of  
+dementia in older adults.: JAMA. 2003; 289: 1405-1413.（高齢者と認知症） 
+３． Wang SM, Han KD, Kim NY, Um YH, Kang DW, Na HR, Lee CU, Lim HK: Association  
+of Alcohol Intake and Fracture Risk in Elderly Varied by Affected Bones: A  
+Nationwide Longitudinal Study. Psychiatry Investig. 2020 Oct; 17(10): 1013– 
+1020.（高齢者の飲酒と骨折） 
+４． Rigler SK: Alcoholism in the Elderly. Am Fam Physician. 2000;61(6):1710-
+1716.（高齢者の飲酒と転倒） 
+５． Shakya I, Bergen G, Haddad YH, Kakara R, Moreland BL: Fall-related emergency  
+department visits involving alcohol among older adults. J Safety Res. 2020  
+Sep; 74: 125–131. （高齢者は飲酒時の転倒で脳に重症の障害） 
+６． Skinner J, Shepstone L, Hickson M, Welch AA: Alcohol Consumption and 
+Measures of Sarcopenic Muscle Risk: Cross‑Sectional and Prospective 
+Associations Within the UK Biobank Study. Calcified Tissue International. 
+2023. 113: 143–156. （飲酒とサルコペニア） 
+７． Prokopidis K, Witard OC: Understanding the role of smoking and chronic 
+excess alcohol consumption on reduced caloric intake and the development of 
+sarcopenia. Nutr Res Rev. 2022 Dec;35(2): 197-206. （喫煙や過剰飲酒とサルコ
+ペニア） 
+ 
+若者（20 歳以上も含む） 
+８． Sowell RE, Thompson PM, Tessner KD, Toga AW: Mapping Continued Brain Growth 
+and Gray Matter Density Reduction in Dorsal Frontal Cortex: Inverse 
+Relationships during Postadolescent Brain Maturation. J Neurosci. 2001; 
+21(22): 8819–8829（20歳以降も脳の構造が発達） 
+９． Dosenbach NUF, Nardos B, Cohen AL, Fair DA, Power JD, Church JA, Nelson SM, 
+Wig GS, Vogel AC, Lessov-Schlaggar CN, Barnes KA, Dubis JW, Feczko E, 
+Coalson RS, Pruett JR Jr., Barch DM, Petersen SE, Schlaggar BL: Prediction 
+of Individual Brain Maturity Using fMRI. Science. 2010; 329(5997): 1358–
+1361. （20歳以降も脳の機能が発達） 
+１０． Lees B, Meredith LR, Kirkland AE, Bryant BE, Squeglia LM: Effect of 
+alcohol use on the adolescent brain and behavior. Pharmacol Biochem Behav. 
+2020; 192: 172906.（若者の飲酒の脳への影響） 
+１１． Nakanishi N, Makino K, Nishina K, Suzuki K, Tatara K: Relationship of 
+light to moderate alcohol consumption and risk of hypertension in Japanese 
+male office workers. Alcohol Clin Exp Res. 2002; 26(7): 988-994.（若者の飲
+酒で健康問題が出現） 
+   
+9 
+ 
+女性 
+１２． Bradley KA, Badrinath S, Bush K, Boyd-Wickizer J, Anawalt B: Medical risks  
+for women who drink alcohol. J Gen Intern Med. 1998 Sep;13(9):627-39.（女 
+性は体液量が少ない等、女性飲酒の医学的リスク） 
+１３． Chrostek L, Jelski W, Szmitkowski M, Puchalski Z: Gender-related  
+differences in hepatic activity of alcohol dehydrogenase isoenzymes and  
+aldehyde dehydrogenase in humans. J Clin Lab Anal. 2003; 17: 93–96.（女性 
+は男性よりも肝臓のアルコール脱水素酵素活性が低い） 
+１４． Teschke R, Wannagat FJ, Löwendorf F, Strohmeyer G: 
+Hepatic alcohol metabolizing enzymes after prolonged administration of sex  
+hormones and alcohol in female rats. Biochem Pharmacol. 1986 Feb 1; 35(3):  
+521-527.（女性ホルモンがアルコール代謝に与える影響） 
+１５． Rachdaoui N, Sarkar DK: Pathophysiology of the Effects of Alcohol Abuse on  
+the Endocrine System. Alcohol Res. 2017; 38(2): 255-276. （アルコール乱用
+とホルモン） 
+１６． Osna NA, Donohue TM Jr, Kharbanda KK:  
+Alcoholic Liver Disease: Pathogenesis and Current Management. Alcohol Res.  
+2017; 38(2): 147-161. （エストロゲンはアルコール関連肝疾患の補助因子であろ 
+う） 
+１７． Kezer CA, Simonetto DA, Shah VH: Sex Differences in Alcohol Consumption  
+and Alcohol-Associated Liver Disease. Mayo Clin Proc. 2021 Apr; 96(4):  
+1006-1016.（性差とアルコール関連肝硬変） 
+１８． Roerecke M, Vafaei A, Hasan OSM, Chrystoja BR, Cruz M, Lee R, Neuman MG,  
+Rehm J: Alcohol Consumption and Risk of Liver Cirrhosis: A Systematic  
+Review and Meta-Analysis. Am J Gastroenterol. 2019 Oct; 114(10): 1574- 
+1586.（飲酒量と肝硬変） 
+１９． Ikehara S, Iso H, Toyoshima H, Date C, Yamamoto A, Kikuchi S, et al.  
+Alcohol consumption and mortality from stroke and coronary heart disease  
+among Japanese men and women: Japan collaborative cohort study. Stroke.  
+2008 Nov; 39(11): 2936-2942.（アルコール消費と男女の脳卒中と虚血性心疾患の 
+死亡率） 
+２０． Ikehara S, Iso H, Yamagishi K, Kokubo Y, Saito I, Yatsuya H, Inoue M,  
+Tsugane S; JPHC Study Group. Alcohol consumption and risk of stroke and  
+coronary heart disease among Japanese women: the Japan Public Health  
+Center-based prospective study. Prev Med. 2013; 57(5): 505-510. （アルコー
+ル消費と女性の脳卒中と虚血性心疾患） 
+ 
+体質 
+２１． Harada S, Zhang S: New Strategy for Detection of ALDH2 Mutant. Alcohol 
+Alcohol. 1993; 28: 11-13. （日本人のお酒に弱い酵素の遺伝子） 
+２２． 横山顕 アルコール代謝と発がん．糖尿病・内分泌内科.2021; 52(1): 58-65. 
+２３． Brooks PJ, Enoch MA, Goldman D, Li TK, Yokoyama A: The Alcohol Flushing  
+Response: An Unrecognized Risk Factor for Esophageal Cancer from Alcohol  
+   
+10 
+ 
+Consumption. PLoS Med. 2009 Mar; 6(3): e1000050.（フラッシングと食道癌） 
+２４． Ono A, Inoue M, Sawada N, Saito E, Yamaji T , Shimazu T, Goto A, Iwasaki  
+M, Tsugane S; JPHC Study Group: Impact of alcohol drinking on cancer risk  
+with consideration of flushing response: The Japan Public Health Center- 
+based Prospective Study Cohort (JPHC study). Prev Med. 2020 Feb  
+11; 133: 106026.（フラッシングと癌のリスク） 
+ 
+その他（疾病と依存症、飲酒の影響他） 
+２５． World Health Organization: Global strategy to reduce the harmful use of 
+alcohol. (https://www.who.int/publications-detail-redirect/9789241599931)
+（世界戦略） 
+２６． World Health Organization: Global action plan for the prevention and 
+control of noncommunicable diseases 2013-2020 
+(https://iris.who.int/bitstream/handle/10665/94384/9789241506236_eng.pdf?s
+equence=1)（アクションプラン） 
+２７． World Health Organization: Global status report on alcohol and health  
+2018. （https://www.who.int/publications/i/item/9789241565639） （飲酒の世 
+界統計） 
+２８． Canada's Guidance on Alcohol and Health: Final Report (ccsa.ca) . 
+（https://ccsa.ca/sites/default/files/2023-
+01/CCSA_Canadas_Guidance_on_Alcohol_and_Health_Final_Report_en.pdf）  
+（カナダのガイドライン） 
+２９． GBD 2016 Alcohol Collaborator: Alcohol use and burden for 195 countries 
+and territories, 1990–2016: a systematic analysis for the Global Burden of 
+Disease Study 2016. Lancet. 2018; 392: 1015-1035.（アルコール使用と全世界
+の疾患） 
+３０． Nakashita Y, Nakamura M, Kitamura A, Kiyama M, Ishikawa Y, Mikami H:  
+Relationships of cigarette smoking and alcohol consumption to metabolic  
+syndrome in Japanese men. J Epidemiol 2010; 20:391–397.（飲酒と高血圧） 
+３１． Inoue M, Nagata C, Tsuji I, Sugawara Y, Wakai K, Tamakoshi A, Matsuo  
+K, Mizoue T, Tanaka K, Sasazuki S, Tsugane S; Research Group for the  
+Development and Evaluation of Cancer Prevention Strategies in Japan:  
+Impact of alcohol intake on total mortality and mortality from major  
+causes in Japan: a pooled analysis of six large-scale cohort studies.  
+Research Group for the Development and Evaluation of Cancer Prevention  
+Strategies in Japan. J Epidemiol Community Health. 2012 May; 66(5): 448- 
+456.（飲酒と死亡率） 
+３２． Richards DK, Matthew R. Pearson MR, Witkiewitz k: Understanding alcohol  
+harm reduction behaviors from the perspective of self-determination  
+theory: A research agenda. Addict Res Theory. 2021; 29(5):392–397. 
+（自己決定理論での飲酒行動の改善） 
+３３． Grant BF, Dawson DA: Age at onset of alcohol use and its association with  
+DSM-IV alcohol abuse and dependence: results from the National Longitudinal  
+   
+11 
+ 
+Alcohol Epidemiologic Survey. J Subst Abuse. 1997; 9: 103-110.（若年者と依 
+存） 
+３４． De Bellis MD, Clark DB, Beers SR, Soloff PH, Boring AM, Hall J, Kersh A,  
+Keshavan MS: Hippocampal volume in adolescent-onset alcohol use disorders.  
+Am J Psychiatry. 2000 May; 157(5): 737-744.（思春期発症のアルコール使用障 
+害における海馬容積） 
+３５． Hingson RW, Heeren T, Winter MR: Age at drinking onset and alcohol  
+dependence: age at onset, duration, and severity.Arch Pediatr Adolesc Med.  
+2006 Jul; 160(7): 739-746.（飲酒開始年齢と依存症、発症年齢、期間、および重 
+症度） 
+３６． Horst PG, Madjunkov M, Chaudry S: Alcohol: A Pharmaceutical and  
+Pharmacological Point of View During Lactation. J Popul Ther Clin Pharmacol.  
+2016; 23(2): e145-150.（授乳期の飲酒） 
+３７． Mizoi Y, Ijiri I, Tatsuno Y, Kijima T, Fujiwara S, Adachi J, Hishida S: 
+Relationship between facial flushing and blood acetaldehyde levels after 
+alcohol intake. Pharmacol Biochem Behav. 1979 Feb; 10(2): 303-311.（飲酒と
+フラッシング反応） 
+３８． Anker JJ, Kushner MG: Co-Occurring Alcohol Use Disorder and Anxiety: 
+Bridging Psychiatric, Psychological, and Neurobiological Perspectives. 
+Alcohol Res. 2019 Dec 30; 40(1): arcr.v40.1.03.（不安障害の不安解消の飲酒
+が依存症の原因になることがある） 
+３９． Chakravorty S, Chaudhary NS, Brower KJ: Alcohol Dependence and its  
+Relationship with Insomnia and Other Sleep Disorders. Alcohol Clin Exp  
+Res. 2016; 40(11): 2271–2282.（睡眠に対する飲酒の悪影響） 
+４０． Szabo G, Saha B: Alcohol's Effect on Host Defense. Alcohol Res. 2015;  
+37(2): 159-170. （過度な飲酒による免疫力の低下） 
+４１． 梅田悦生: アルコールと医薬品の相互作用. 2002. 中外医学社. 東京（お酒と薬の 
+飲み合わせの解説） 
+４２． Roine R, Luurila OJ, Suokas A, Heikkonen E, Koskinen P, Ylikahri R,  
+Toivonen L, Härkönen M, Salaspuro M: Alcohol and sauna bathing: effects  
+on cardiac rhythm, blood pressure, and serum electrolyte and cortisol  
+concentrations. J Intern Med. 1992 Apr; 231(4): 333-338. （飲酒時の入浴で 
+血圧低下） 
+４３． 沢田芳男: 酒と身体運動. 日本釀造協會雜誌. 1976; 71(4): 208-211. （飲酒後の 
+運動） 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+12 
+ 
+＜表１の参考文献＞ 
+脳卒中  
+A) Ikehara S, Iso H, Yamagishi K, Kokubo Y, Saito I, Yatsuya H, Inoue M, 
+Tsugane S; JPHC Study Group: Alcohol consumption and risk of stroke and 
+coronary heart disease among Japanese women: the Japan Public Health Center-
+based prospective study. Prev Med. 2013; 57(5): 505-510.  
+B) Iso H, Baba S, Mannami T, Sasaki S, Okada K, Konishi M, Tsugane S; JPHC 
+Study Group: Alcohol consumption and risk of stroke among middle-aged men: 
+the JPHC Study Cohort I. Stroke. 2004; 35(5): 1124-1129.  
+C) Ikehara S, Iso H, Yamagishi K, Yamamoto S, Inoue M, Tsugane S; JPHC Study 
+Group: Alcohol consumption, social support, and risk of stroke and coronary 
+heart disease among Japanese men: the JPHC Study. Alcohol Clin Exp Res. 
+2009; 33(6): 1025-1032.  
+出血性脳卒中  
+A) Ikehara S, Iso H, Yamagishi K, Kokubo Y, Saito I, Yatsuya H, Inoue M, 
+Tsugane S; JPHC Study Group: Alcohol consumption and risk of stroke and 
+coronary heart disease among Japanese women: the Japan Public Health Center-
+based prospective study. Prev Med. 2013 ;57(5): 505-510.  
+B) Iso H, Baba S, Mannami T, Sasaki S, Okada K, Konishi M, Tsugane S; JPHC 
+Study Group: Alcohol consumption and risk of stroke among middle-aged men: 
+the JPHC Study Cohort I. Stroke. 2004; 35(5): 1124-1129.  
+C) Ikehara S, Iso H, Yamagishi K, Yamamoto S, Inoue M, Tsugane S; JPHC Study 
+Group: Alcohol consumption, social support, and risk of stroke and coronary 
+heart disease among Japanese men: the JPHC Study. Alcohol Clin Exp Res. 
+2009; 33(6): 1025-1032.  
+D) Sankai T, Iso H, Shimamoto T, Kitamura A, Naito Y, Sato S, Okamura T, Imano 
+H, Iida M, Komachi Y: Prospective study on alcohol intake and risk of 
+subarachnoid hemorrhage among Japanese men and women. Alcohol Clin Exp Res. 
+2000; 24(3): 386-389.  
+脳梗塞 
+A) Ikehara S, Iso H, Yamagishi K, Kokubo Y, Saito I, Yatsuya H, Inoue M, 
+Tsugane S; JPHC Study Group: Alcohol consumption and risk of stroke and 
+coronary heart disease among Japanese women: the Japan Public Health Center-
+based prospective study. Prev Med. 2013; 57(5): 505-510.  
+B) Iso H, Baba S, Mannami T, Sasaki S, Okada K, Konishi M, Tsugane S; JPHC 
+Study Group: Alcohol consumption and risk of stroke among middle-aged men: 
+the JPHC Study Cohort I. Stroke. 2004; 35(5): 1124-1129.  
+C) Ikehara S, Iso H, Yamagishi K, Yamamoto S, Inoue M, Tsugane S; JPHC Study 
+Group: Alcohol consumption, social support, and risk of stroke and coronary 
+heart disease among Japanese men: the JPHC Study. Alcohol Clin Exp Res. 
+2009; 33(6): 1025-1032.  
+ 
+ 
+   
+13 
+ 
+虚血性心疾患 
+A) Ikehara S, Iso H, Yamagishi K, Kokubo Y, Saito I, Yatsuya H, Inoue M, 
+Tsugane S; JPHC Study Group: Alcohol consumption and risk of stroke and 
+coronary heart disease among Japanese women: the Japan Public Health Center-
+based prospective study. Prev Med. 2013; 57(5): 505-510.  
+B) Ikehara S, Iso H, Yamagishi K, Yamamoto S, Inoue M, Tsugane S; JPHC Study 
+Group: Alcohol consumption, social support, and risk of stroke and coronary 
+heart disease among Japanese men: the JPHC Study. Alcohol Clin Exp Res. 
+2009; 33(6): 1025-1032.  
+C) Makita S, Onoda T, Ohsawa M, Tanaka F, Segawa T, Takahashi T, Satoh K, Itai 
+K, Tanno K, Sakata K, Omama S, Yoshida Y, Ishibashi Y, Koyama T, Kuribayashi 
+T, Ogasawara K, Ogawa A, Okayama A, Nakamura M: Influence of mild-to-
+moderate alcohol consumption on cardiovascular diseases in men from the 
+general population. Atherosclerosis. 2012; 224(1): 222-227.  
+D) Nakamura Y, Kita Y, Iso H, Ueshima H, Okada K, Konishi M, Inoue M, Tsugane 
+S; JPHC Study Group: Alcohol consumption, alcohol-induced flushing and 
+incidence of acute myocardial infarction among middle-aged men in Japan—
+Japan Public Health Center-based prospective study. Atherosclerosis. 2007; 
+194(2): 512-516. 
+胃がん 
+A) Li Y, Eshak ES, Shirai K, Liu K, Dong JY, Iso H, Tamakoshi A; JACC Study 
+Group: Alcohol Consumption and Risk of Gastric Cancer: The Japan 
+Collaborative Cohort Study. J Epidemiol. 2021; 31(1): 30-36. 
+B) Tamura T, Wada K, Tsuji M, Konishi K, Kawachi T, Hori A, Tanabashi S, 
+Matsushita S, Tokimitsu N, Nagata C: Association of alcohol consumption with 
+the risk of stomach cancer in a Japanese population: a prospective cohort 
+study. Eur J Cancer Prev. 2018; 27(1): 27-32.  
+C) Tamura T, Wakai K, Lin Y, Tamakoshi A, Utada M, Ozasa K, Sugawara Y, Tsuji 
+I, Ono A, Sawada N, Tsugane S, Ito H, Nagata C, Kitamura T, Naito M, Tanaka 
+K, Shimazu T, Mizoue T, Matsuo K, Inoue M; Research Group for the 
+Development and Evaluation of Cancer Prevention Strategies in Japan: Alcohol 
+intake and stomach cancer risk in Japan: A pooled analysis of six cohort 
+studies. Cancer Sci. 2022; 113(1): 261-276. 
+D) Nakaya N, Tsubono Y, Kuriyama S, Hozawa A, Shimazu T, Kurashima K, Fukudo S, 
+Shibuya D, Tsuji I: Alcohol consumption and the risk of cancer in Japanese 
+men: the Miyagi cohort study. Eur J Cancer Prev. 2005; 14(2): 169-174. 
+肺がん  
+A) Shimazu T, Inoue M, Sasazuki S, Iwasaki M, Kurahashi N, Yamaji T, Tsugane S; 
+Japan Public Health Center-based Prospective Study Group: Alcohol and risk 
+of lung cancer among Japanese men: data from a large-scale population-based 
+cohort study, the JPHC study. Cancer Causes Control. 2008; 19(10): 1095-
+1102.  
+   
+14 
+ 
+B) Nakaya N, Tsubono Y, Kuriyama S, Hozawa A, Shimazu T, Kurashima K, Fukudo S, 
+Shibuya D, Tsuji I: Alcohol consumption and the risk of cancer in Japanese 
+men: the Miyagi cohort study. Eur J Cancer Prev. 2005; 14(2): 169-174. 
+大腸がん  
+A) Ma E, Sasazuki S, Iwasaki M, Sawada N, Inoue M, Tsugane S; Japan Public 
+Health Center-based Prospective Study Group: 10-Year risk of colorectal 
+cancer: development and validation of a prediction model in middle-aged 
+Japanese men. Cancer Epidemiol. 2010; 34(5): 534-541.  
+B) Akhter M, Kuriyama S, Nakaya N, Shimazu T, Ohmori K, Nishino Y, Tsubono Y, 
+Fukao A, Tsuji I: Alcohol consumption is associated with an increased risk 
+of distal colon and rectal cancer in Japanese men: the Miyagi Cohort Study. 
+Eur J Cancer. 2007;43(2): 383-390.  
+C) Otani T, Iwasaki M, Yamamoto S, Sobue T, Hanaoka T, Inoue M, Tsugane S; 
+Japan Public Health Center-based Prospective Study Group: Alcohol 
+consumption, smoking, and subsequent risk of colorectal cancer in middle-
+aged and elderly Japanese men and women: Japan Public Health Center-based 
+prospective study. Cancer Epidemiol Biomarkers Prev. 2003; 12(12): 1492-
+1500.  
+D) Wakai K, Kojima M, Tamakoshi K, Watanabe Y, Hayakawa N, Suzuki K, Hashimoto 
+S, Kawado M, Tokudome S, Suzuki S, Ozasa K, Toyoshima H, Ito Y, Tamakoshi A; 
+JACC Study Group: Alcohol consumption and colorectal cancer risk: findings 
+from the JACC Study. J Epidemiol. 2005; 15 Suppl 2(Suppl II): S173-S179.  
+E) Shimizu N, Nagata C, Shimizu H, Kametani M, Takeyama N, Ohnuma T, Matsushita 
+S: Height, weight, and alcohol consumption in relation to the risk of 
+colorectal cancer in Japan: a prospective study. Br J Cancer. 2003; 88(7): 
+1038-1043.  
+F) Nakaya N, Tsubono Y, Kuriyama S, Hozawa A, Shimazu T, Kurashima K, Fukudo S, 
+Shibuya D, Tsuji I: Alcohol consumption and the risk of cancer in Japanese 
+men: the Miyagi cohort study. Eur J Cancer Prev. 2005; 14(2): 169-174. 
+G) Mizoue T, Inoue M, Wakai K, Nagata C, Shimazu T, Tsuji I, Otani T, Tanaka 
+K,Matsuo K, Tamakoshi A, Sasazuki S, Tsugane S; Research Group for 
+Development and Evaluation of Cancer Prevention Strategies in Japan: Alcohol 
+drinking and colorectal cancer in Japanese: a pooled analysis of results 
+from five cohort studies. Am J Epidemiol. 2008; 167(12): 1397-1406.  
+食道がん  
+A) Ishikawa A, Kuriyama S, Tsubono Y, Fukao A, Takahashi H, Tachiya H, Tsuji I: 
+Smoking, alcohol drinking, green tea consumption and the risk of esophageal 
+cancer in Japanese men. J Epidemiol. 2006; 16(5): 185-192.  
+B) Ishiguro S, Sasazuki S, Inoue M, Kurahashi N, Iwasaki M, Tsugane S; JPHC 
+Study Group: Effect of alcohol consumption, cigarette smoking and flushing 
+response on esophageal cancer risk: a population-based cohort study (JPHC 
+study). Cancer Lett. 2009; 275(2): 240-246.  
+   
+15 
+ 
+C) Nakaya N, Tsubono Y, Kuriyama S, Hozawa A, Shimazu T, Kurashima K, Fukudo S, 
+Shibuya D, Tsuji I: Alcohol consumption and the risk of cancer in Japanese 
+men: the Miyagi cohort study. Eur J Cancer Prev. 2005; 14(2): 169-174.  
+乳がん  
+A) Kawai M, Minami Y, Kakizaki M, Kakugawa Y, Nishino Y, Fukao A, Tsuji I, 
+Ohuchi N: Alcohol consumption and breast cancer risk in Japanese women: the 
+Miyagi Cohort study. Breast Cancer Res Treat. 2011; 128(3): 817-825.  
+B) Suzuki R, Iwasaki M, Inoue M, Sasazuki S, Sawada N, Yamaji T, Shimazu T, 
+Tsugane S; Japan Public Health Center Based Prospective Study Group: Alcohol 
+consumption-associated breast cancer incidence and potential effect 
+modifiers: the Japan Public Health Center-based Prospective Study. Int J 
+Cancer. 2010; 127(3): 685-695.  
+C) Lin Y, Kikuchi S, Tamakoshi K, Wakai K, Kondo T, Niwa Y, Yatsuya H, Nishio 
+K, Suzuki S, Tokudome S, Yamamoto A, Toyoshima H, Tamakoshi A: Prospective 
+study of alcohol consumption and breast cancer risk in Japanese women. Int J 
+Cancer. 2005; 116(5): 779-783.  
+D) Iwase M, Matsuo K, Koyanagi YNY, Ito H, Tamakoshi A, Wang C, Utada M, Ozasa 
+K, Sugawara Y, Tsuji I, Sawada N, Tanaka S, Nagata C, Kitamura Y, Shimazu T, 
+Mizoue T, Naito M, Tanaka K, Inoue M: Alcohol consumption and breast cancer 
+risk in Japan: A pooled analysis of eight population-based cohort studies. 
+Int J Cancer. 2021 Jun 1; 148(11): 2736-2747.  
+E) Sinnadurai S, Okabayashi S, Kawamura T, Mori M, Bhoo-Pathy N, Taib NA, Ukawa 
+S, Tamakoshi A, The JACC Study Group: Intake of Common Alcoholic and Non-
+Alcoholic Beverages and Breast Cancer Risk among Japanese Women: Findings 
+from the Japan Collaborative Cohort Study. Asian Pac J Cancer Prev. 2020; 
+21(6): 1701-1707.  
+F) Nitta J, Nojima M, Ohnishi H, Mori M, Wakai K, Suzuki S, Fujino Y,Lin Y, 
+Tamakoshi K, Tamakoshi A: Weight Gain and Alcohol Drinking Associations with 
+Breast Cancer Risk in Japanese Postmenopausal Women -Results from the Japan 
+Collaborative Cohort (JACC) Study. Asian Pac J Cancer Prev. 2016; 17(3): 
+1437-1443.  
+肝がん  
+A) Shimazu T, Sasazuki S, Wakai K, Tamakoshi A, Tsuji I, Sugawara Y, Matsuo K, 
+Nagata C, Mizoue T, Tanaka K, Inoue M, Tsugane S; Research Group for the 
+Development and Evaluation of Cancer Prevention Strategies in Japan: Alcohol 
+drinking and primary liver cancer: a pooled analysis of four Japanese cohort 
+studies. Int J Cancer. 2012; 130(11): 2645-2653  
+B) Nakaya N, Tsubono Y, Kuriyama S, Hozawa A, Shimazu T, Kurashima K, Fukudo S, 
+Shibuya D, Tsuji I: Alcohol consumption and the risk of cancer in Japanese 
+men: the Miyagi cohort study. Eur J Cancer Prev. 2005; 14(2): 169-174.  
+前立腺がん  
+A) Sawada N, Inoue M, Iwasaki M, Sasazuki S, Yamaji T, Shimazu T, Tsugane S. 
+Alcohol and smoking and subsequent risk of prostate cancer in Japanese men: 
+   
+16 
+ 
+the Japan Public Health Center-based prospective study. Int J Cancer. 2014; 
+134(4): 971-978.  
+高血圧  
+A) Nakanishi N, Nakamura K, Ichikawa S, Suzuki K, Kawashimo H, Tatara K. Risk 
+factors for the development of hypertension: a 6-year longitudinal study of 
+middle-aged Japanese men. J Hypertens. 1998; 16(6): 753-759.  
+B) Nakanishi N, Kawashimo H, Nakamura K, Suzuki K, Yoshida H, Uzura S, Tatara 
+K: Association of alcohol consumption with increase in aortic stiffness: a 
+9-year longitudinal study in middle-aged Japanese men. Ind Health. 2001; 
+39(1): 24-28.  
+C) Nakanishi N, Makino K, Nishina K, Suzuki K, Tatara K: Relationship of light 
+to moderate alcohol consumption and risk of hypertension in Japanese male 
+office workers. Alcohol Clin Exp Res. 2002; 26(7): 988-994. 
+D) Okubo Y, Sairenchi T, Irie F, Yamagishi K, Iso H, Watanabe H, Muto T, Tanaka 
+K, Ota H: Association of alcohol consumption with incident hypertension 
+among middle-aged and older Japanese population: the Ibarakai Prefectural 
+Health Study (IPHS). Hypertension. 2014 Jan; 63(1): 41-47.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+17 
+ 
+＜表２の参考情報＞ 
+A) アイルランド：https://www2.hse.ie/wellbeing/alcohol/improve-your-
+health/weekly-low-risk-alcohol-guidelines.html 
+B) アメリカ：https://www.dietaryguidelines.gov/sites/default/files/2020-
+12/Dietary_Guidelines_for_Americans_2020-2025.pdf 
+C) イギリス：
+https://assets.publishing.service.gov.uk/government/uploads/system/uploads/a
+ttachment_data/file/489795/summary.pdf 
+D) イタリア：
+https://www.epicentro.iss.it/alcol/apd2018/locandina%20con%20figure%202018.p
+df 
+E) オーストラリア：https://www.health.gov.au/health-topics/alcohol/about-
+alcohol/standard-drinks-guide 
+F) オーストリア：https://www.dialogwoche-alkohol.at/wp-
+content/uploads/2019/05/Factsheet-Dialogwoche-Alkohol-2019-1.pdf 
+G) カナダ：Canada's Guidance on Alcohol and Health: Final Report (ccsa.ca) . 
+（https://ccsa.ca/sites/default/files/2023-
+01/CCSA_Canadas_Guidance_on_Alcohol_and_Health_Final_Report_en.pdf） 
+H) 韓国：https://www.khealth.or.kr/board/view?linkId=24811&menuId=MENU00645 
+I) シンガポール：https://www.healthhub.sg/live-healthy/920/alcohol-and-health-
+set-your-drinking-limits 
+J) スウェーデン：https://www.livsmedelsverket.se/matvanor-halsa--miljo/kostrad/rad-om-
+bra-mat-hitta-ditt-satt/alkohol---rad 
+K) ニュージーランド：https://www.health.govt.nz/your-health/healthy-
+living/addictions/alcohol-and-drug-abuse/alcohol 
+L) ロシア：https://gnicpm.ru/articles/speczialistam-articles/profilaktika-
+upotrebleniya-alkogolya-narkotikov.html 
+ 
+ 

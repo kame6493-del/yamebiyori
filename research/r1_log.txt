@@ -1,0 +1,70 @@
+禁酒 1 禁酒マン - 休肝日カウンター｜断酒・減酒対応 0.0 6676 7 2
+禁酒 2 禁酒タイマー-禁酒・断酒時間・休肝日を記録！ 0.0 173 3 1
+禁酒 3 休肝日記録 0.0 3656 0 2
+禁酒 4 飲酒カレンダー！ 0.0 2567 5 19
+禁酒 5 noman～のまん～ 0.0 57 0 0
+禁酒 6 継続する技術｜ダイエットも筋トレも記録・習慣化で 0.0 53259 5 1
+禁酒 7 禁酒 800.0 293 3 2
+禁酒 8 Quitzilla: 禁欲カウンター 0.0 1443 4 3
+禁酒 9 SmartDrinkQuit - 禁酒・節酒記録 0.0 6 1 0
+禁酒 10 禁酒コーチ - 断酒カウンター・休肝日・減酒 0.0 35 3 1
+禁酒 11 みんチャレ-習慣化で目標達成～ダイエットや禁酒・ 0.0 34791 3 4
+禁酒 12 習慣の記録で継続 DotHabit 運動・勉強・ 0.0 16725 7 11
+禁酒 13 断酒ノート - AIと話せる断酒・禁酒 0.0 2 2 0
+禁酒 14 禁酒「ノマヌ」：お酒を本気でやめる断酒・禁酒アプ 0.0 0 4 0
+禁酒 15 Soberya: 禁酒・断酒・節酒・飲酒記録・休 0.0 0 2 0
+禁酒 16 禁欲カウンター - 男を上げる禁欲サポーター 0.0 12617 0 8
+禁酒 17 禁酒チャレンジ お酒に頼らない自分と、健康な体を 0.0 3 3 0
+禁酒 18 禁酒アプリ Sober Line｜断酒・減酒 0.0 2 3 0
+禁酒 19 禁欲タイマー 禁煙・禁酒などの悪習慣を断つ 習慣 0.0 21 1 0
+断酒 5 Rebuild：禁酒アプリ｜断酒・休肝日カウンタ 0.0 0 3 0
+断酒 6 断アルコール 150.0 108 0 3
+断酒 8 肝臓くんと減酒 - 休肝日・飲酒記録 0.0 0 0 0
+断酒 9 Soberly 禁酒アプリ 断酒カウンター 0.0 0 3 0
+断酒 11 依存症克服SNS クイットメイト QuitMat 0.0 209 2 1
+断酒 12 ゆる断酒 - 禁酒の記録と節約が見える 0.0 7 1 0
+断酒 13 断酒クエスト 0.0 2 3 0
+断酒 17 きょうから - 断酒・節酒のおまもり手帳 0.0 0 4 0
+断酒 18 禁酒メイト 禁酒カウンター＆断酒SNS 0.0 11 1 0
+禁煙 1 禁煙ウォッチ - 禁煙時間が一目でわかる 0.0 16464 0 22
+禁煙 2 禁煙SWAN 卒煙の正しい知識を 0.0 6311 9 3
+禁煙 3 禁煙ソルジャー - たのしく続く禁煙タイマー 0.0 5296 7 1
+禁煙 4 喫煙カレンダー - タバコの本数管理と節約記録 0.0 625 5 2
+禁煙 5 禁煙貯金 | 禁煙して節約！ 0.0 133 0 1
+retry https://apps.apple.com/jp/app/id879906153 The read operation timed out
+retry https://apps.apple.com/jp/app/id879906153 <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://apps.apple.com/jp/app/id879906153 <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://itunes.apple.com/jp/rss/customerreviews/page=1/id=879906153/sortby=mostr <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://itunes.apple.com/jp/rss/customerreviews/page=1/id=879906153/sortby=mostr <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://itunes.apple.com/jp/rss/customerreviews/page=1/id=879906153/sortby=mostr <urlopen error [Errno 11001] getaddrinfo failed>
+禁煙 6 禁煙駅伝 0.0 2702 0 0
+retry https://apps.apple.com/jp/app/id6755483293 <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://apps.apple.com/jp/app/id6755483293 <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://apps.apple.com/jp/app/id6755483293 <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://itunes.apple.com/jp/rss/customerreviews/page=1/id=6755483293/sortby=most <urlopen error [Errno 11001] getaddrinfo failed>
+retry https://itunes.apple.com/jp/rss/customerreviews/page=1/id=6755483293/sortby=most <urlopen error [Errno 11001] getaddrinfo failed>
+禁煙 7 禁煙アプリ: たばこ卒業タイマー 節約カウンター 0.0 4 0 0
+禁煙 8 禁煙継続カウンター 0.0 8 0 0
+禁煙 9 禁煙アプリでタバコの本数を減らす - アライブ 0.0 42 7 0
+禁煙 10 Reclaim 禁煙アプリ - 卒煙・タバコをや 0.0 4 3 0
+retry https://apps.apple.com/jp/app/id1507649580 The read operation timed out
+禁煙 11 禁煙＋ 喫煙を絶対辞めたい人の卒煙をサポートする 0.0 568 0 1
+禁煙 13 禁煙or減煙？喫煙記録ゲーム 肺活くん 0.0 228 1 0
+禁煙 14 しない。- やらないことリスト・やめる習慣 0.0 2 1 0
+禁煙 15 禁煙マスター 0.0 8 1 0
+禁煙 16 NewBreath - 禁煙AIアプリ 0.0 3 6 0
+禁煙 17 禁煙貯金 0.0 0 0 0
+禁煙 19 QuitSure: 賢く禁煙しましょう 0.0 94 9 1
+減酒 3 減酒記録アプリ - 飲酒チェッカー節子ちゃん 0.0 742 1 4
+減酒 4 減酒にっき 0.0 147 0 29
+減酒 5 減酒ログ 0.0 1 1 0
+減酒 7 アルコカレンダー 0.0 34 2 0
+減酒 8 HAUDY（ハウディ） 0.0 2 0 0
+減酒 11 YoiLog 0.0 5531 2 6
+減酒 12 飲酒記録カレンダー　酔っ払い度を記入して減酒＆生 0.0 59 1 0
+減酒 13 うちな～節酒カレンダー 0.0 9 0 3
+減酒 15 レッツ減酒！ 0.0 0 1 0
+減酒 16 減酒くん 0.0 86 1 5
+減酒 18 ほどほど酒道 - 飲みすぎ防止のかんたん飲酒記録 0.0 4 1 0
+減酒 19 シラフ予報｜アルコールチェッカー・飲酒記録 0.0 1 2 0
+done

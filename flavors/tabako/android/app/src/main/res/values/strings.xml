@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">やめ日和 たばこ</string>
+    <string name="title_activity_main">やめ日和 たばこ</string>
+    <string name="package_name">jp.yamebiyori.tabako</string>
+    <string name="custom_url_scheme">jp.yamebiyori.tabako</string>
+</resources>
