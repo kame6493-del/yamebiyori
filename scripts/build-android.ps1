@@ -51,8 +51,8 @@ try {
   if ($p.ExitCode -ne 0) { Get-Content $err -Tail 30; throw "Gradle が失敗しました (exit $($p.ExitCode))" }
   $out = Join-Path $repo 'releases'
   New-Item -ItemType Directory -Force $out | Out-Null
-  Copy-Item "$proj\app\build\outputs\bundle\release\app-release.aab" "$out\yamebiyori-$Flavor-1.0.0-vc1.aab" -Force
-  Copy-Item "$proj\app\build\outputs\apk\release\app-release.apk" "$out\yamebiyori-$Flavor-1.0.0-vc1.apk" -Force
+  Copy-Item "$proj\app\build\outputs\bundle\release\app-release.aab" "$out\yamebiyori-$Flavor-1.0.1-vc2.aab" -Force
+  Copy-Item "$proj\app\build\outputs\apk\release\app-release.apk" "$out\yamebiyori-$Flavor-1.0.1-vc2.apk" -Force
   Write-Output "出力: $out"
 } finally {
   subst $drive /D
