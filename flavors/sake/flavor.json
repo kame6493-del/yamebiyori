@@ -13,7 +13,7 @@
   "stopNoun": "禁酒",
   "productId": "yamebiyori_sake_full",
   "entitlement": "full",
-  "revenuecat": { "ios": "appl_gUvcvXnlQGgzeVoXPdJYkOKWTog", "android": "" },
+  "revenuecat": { "ios": "appl_gUvcvXnlQGgzeVoXPdJYkOKWTog", "android": "goog_ulxJuBzlIRXqAsaiSeYebNTjJpf" },
   "theme": "kinari",
   "paper": "#f7f4ec",
   "accent": "#2f6f73"
