@@ -183,3 +183,16 @@
 - データ消失・引き継ぎ(14件。DotHabit「同期が始まりトピックが消えた」、YoiLog「機種変したら使えない」)。→ 端末内保存+控えの書き出し/読み込みを無料で。
 - 「リセットがつらい」系(7件)。→ 通算は消えない、再開した日の言葉を責めない形に。
 - 細かい不満: 過去の開始日が選べない(断アルコール)、たばこの値段に上限(SWAN)、データの書き出しができない(節子ちゃん)、課金を促す画面が記録のたびに出る(飲酒カレンダー)。→ どれも避けた(完全版の案内はホームの一番下と鍵の所だけ)。
+
+## Google Play お酒版(2026-10-04)
+- アプリ作成: app id 4976421264244836912、「やめ日和 禁酒・断酒カウンター」、jp.yamebiyori.sake
+- プライバシーポリシー: https://kame6493-del.github.io/apps/yamebiyori-sake/privacy.html
+- お酒版 クローズドテスト Alpha(トラック 4698803836601955982): 日本・テスター AndroidClosedJP と nigatecho-testers
+- 2026-10-04 お酒版を審査に送信。健康の申告は「その他(習慣の記録・診断治療なし)」、カテゴリ 健康、フィットネス
+
+## Google Play たばこ版(2026-10-04)
+- アプリ作成: app id 4976260325345452671、「やめ日和 禁煙カウンター・卒煙記録」、jp.yamebiyori.tabako
+- プライバシーポリシー: https://kame6493-del.github.io/apps/yamebiyori-tabako/privacy.html
+- たばこ版 クローズドテスト Alpha(トラック 4699150056625537887): 日本・テスター AndroidClosedJP と nigatecho-testers・フィードバック kame6493@gmail.com。AAB yamebiyori-tabako-1.0.0-vc1.aab(1 (1.0.0))
+- 2026-10-04 たばこ版を審査に送信(14件)。健康の申告は「その他」、カテゴリ 健康、フィットネス、データセーフティは購入履歴(収集・必須・アプリの機能)
+- 1.0.1 (vc2): RevenueCat Android キー入り。AAB: お酒 C:\Users\yuichi1\Downloads\やめ日和_2026-10-03\app\releases\yamebiyori-sake-1.0.1-vc2.aab (6.04 MB, 6,336,376 バイト) / たばこ C:\Users\yuichi1\Downloads\やめ日和_2026-10-03\app\releases\yamebiyori-tabako-1.0.1-vc2.aab (6.03 MB, 6,320,526 バイト)
