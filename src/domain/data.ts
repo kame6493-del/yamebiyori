@@ -1,6 +1,10 @@
 import type { AppData, Craving, CravingOutcome, Habit, HabitKind, Settings, Slip } from './types';
 
-export const FREE_HABITS = 1;
+/**
+ * 無料で開けるのは「お酒」と「たばこ」をそれぞれ1つずつ(両方やめる人は無料で両方を数えられる)。
+ * そのほかのやめたいこと・同じ種類の2つ目は完全版。
+ */
+export const FREE_KINDS: HabitKind[] = ['alcohol', 'smoke'];
 
 export const DEFAULT_SETTINGS: Settings = { notify: true, notifyTime: '09:00', theme: 'base' };
 
@@ -43,13 +47,25 @@ export function newHabit(p: { kind: HabitKind; name: string; startAt: string; ye
   };
 }
 
-export function canAddHabit(d: AppData, premium: boolean): boolean {
-  return premium || d.habits.length < FREE_HABITS;
+/** その種類を無料で足せるか(kind を省くと、無料の枠がまだ1つでも空いているか) */
+export function canAddFree(d: AppData, kind?: HabitKind): boolean {
+  const open = FREE_KINDS.filter((k) => !d.habits.some((h) => h.kind === k));
+  return kind ? open.includes(kind) : open.length > 0;
 }
 
-/** 完全版でなくなったとき(返金など)は、最初の習慣だけを開く。記録は消さない */
+export function canAddHabit(d: AppData, premium: boolean, kind?: HabitKind): boolean {
+  return premium || canAddFree(d, kind);
+}
+
+/**
+ * 無料のときに開く習慣: お酒とたばこの最初の1つずつ。どちらも無ければ最初の1つ。
+ * 完全版でなくなったとき(返金など)も記録は消さず、ここに入らない物は閉じるだけ。
+ */
 export function visibleHabits(d: AppData, premium: boolean): Habit[] {
-  return premium ? d.habits : d.habits.slice(0, FREE_HABITS);
+  if (premium) return d.habits;
+  const firsts = new Set(FREE_KINDS.map((k) => d.habits.find((h) => h.kind === k)?.id).filter(Boolean));
+  const list = d.habits.filter((h) => firsts.has(h.id));
+  return list.length ? list : d.habits.slice(0, 1);
 }
 
 export function activeHabit(d: AppData, premium: boolean): Habit | null {
@@ -59,6 +75,23 @@ export function activeHabit(d: AppData, premium: boolean): Habit | null {
 
 export function addHabit(d: AppData, h: Habit): AppData {
   return { ...d, habits: [...d.habits, h], activeId: h.id };
+}
+
+/** はじめの画面で選んだ物をまとめて入れる。ホームは最初の物から見せる */
+export function addHabits(d: AppData, hs: Habit[]): AppData {
+  if (!hs.length) return d;
+  return { ...d, habits: [...d.habits, ...hs], activeId: hs[0].id };
+}
+
+/**
+ * 別の記録(前の版のアプリ・控え)を今の記録に足す。同じ id の習慣は今の方を残す。
+ * 今の記録が空なら、設定も足す側の物を使う。
+ */
+export function mergeData(base: AppData, extra: AppData): AppData {
+  const ids = new Set(base.habits.map((h) => h.id));
+  const add = extra.habits.filter((h) => !ids.has(h.id));
+  if (!base.habits.length) return { ...extra, habits: add, activeId: extra.activeId && add.some((h) => h.id === extra.activeId) ? extra.activeId : add[0]?.id ?? null };
+  return { ...base, habits: [...base.habits, ...add] };
 }
 
 export function updateHabit(d: AppData, id: string, f: (h: Habit) => Habit): AppData {

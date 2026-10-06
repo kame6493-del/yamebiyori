@@ -10,8 +10,8 @@ on:
       flavor:
         description: "どのアプリか(flavors の下のフォルダ名)"
         type: choice
-        options: [sake, tabako]
-        default: sake
+        options: [both, sake, tabako]
+        default: both
 
 jobs:
   record:
@@ -32,13 +32,14 @@ jobs:
         run: |
           npm ci --no-audit --no-fund
           node scripts/use-flavor.mjs "${{ inputs.flavor }}"
+          echo "NATIVE=$(node -p "require('./flavors/${{ inputs.flavor }}/flavor.json').native || '${{ inputs.flavor }}'")" >> "$GITHUB_ENV"
           VITE_REVIEW_TOUR=1 npm run build
           npx cap sync ios
 
       - name: Build for the simulator
         run: |
           xcodebuild build \
-            -project flavors/${{ inputs.flavor }}/ios/App/App.xcodeproj \
+            -project flavors/${{ env.NATIVE }}/ios/App/App.xcodeproj \
             -scheme App -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$RUNNER_TEMP/dd" CODE_SIGNING_ALLOWED=NO -quiet
@@ -75,7 +76,7 @@ jobs:
           REC=$!
           sleep 3
           xcrun simctl launch "$UDID" "$BID"
-          sleep 110
+          sleep 130
           kill -INT $REC
           wait $REC || true
           xcrun simctl io "$UDID" screenshot "$RUNNER_TEMP/last-${{ inputs.flavor }}.png"

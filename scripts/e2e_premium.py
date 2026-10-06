@@ -13,6 +13,8 @@ FL = json.load(open(os.path.join(os.path.dirname(HERE), "src", "flavor.current.j
 OUT = os.path.join(HERE, "e2e_out", FL["key"] + "_premium")
 os.makedirs(OUT, exist_ok=True)
 errors, fails = [], []
+BOTH = FL["kind"] == "both"
+FIRST = "お酒" if BOTH else FL["thing"]
 
 
 def check(cond, msg):
@@ -86,16 +88,18 @@ with sync_playwright() as p:
     page.fill("input[placeholder^='例: 甘い']", "甘いジュース")
     page.fill("input[aria-label='使っていたお金']", "1050")
     page.click("text=はじめる")
-    page.wait_for_selector(".switch")
-    check(page.locator(".switch button").count() == 2, "2つ目を足すと切り替えが出る")
+    sel = ".pair-card" if BOTH else ".switch button"
+    page.wait_for_selector(sel)
+    want = 3 if BOTH else 2
+    check(page.locator(sel).count() == want, f"足すとホームに{want}つ並ぶ")
     check("甘いジュースをやめて" in page.inner_text(".hero-label"), "足した物がホームに出る")
     page.click(".crave-btn")
     page.wait_for_selector(".timer")
     check(page.locator(".quote").count() == 0, "出典の無い習慣には体の情報を出さない")
     page.click("text=乗り切れた")
     page.wait_for_selector(".hero")
-    page.locator(".switch button").first.click()
-    check(FL["thing"] in page.inner_text(".hero-label"), "元の習慣に戻れる")
+    page.locator(sel).first.click()
+    check(FIRST in page.inner_text(".hero-label"), "元の習慣に戻れる")
     shot(page, "05_two_habits")
 
     check(not errors, f"画面のエラー無し {errors[:3]}")

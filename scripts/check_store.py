@@ -25,9 +25,9 @@ def section(text, title):
 
 
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
-for key in ("sake", "tabako"):
+for key in ("both", "sake", "tabako"):  # 出すのは both。sake / tabako は前の2本の記録
     d = os.path.join(STORE, key)
-    t = open(os.path.join(d, "listing.md"), encoding="utf-8").read()
+    t = open(os.path.join(STORE, "listing_merged.md") if key == "both" else os.path.join(d, "listing.md"), encoding="utf-8").read()
     ios, play = t.split("## Google Play")
     name = section(ios, "名前")
     check(0 < len(name) <= 30, f"{key} App Store 名前 {len(name)}字")

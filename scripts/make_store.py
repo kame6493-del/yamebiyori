@@ -2,7 +2,8 @@
 1) 見本データ(?demo=1)で画面を撮る(430x932 ×3 = 1290x2796)
 2) 見出しを付けて iPhone 用 1290x2796 と Play 用 1080x1920 にする
 3) アイコン 1024 / Play 512 / フィーチャー 1024x500
-出力: store/<flavor>/ と store/<flavor>/play/"""
+出力: store/<flavor>/ と store/<flavor>/play/
+both(お酒とたばこを1本にした版)は、両方を記録した見本で撮り、はじめに選ぶ画面も1枚足す。"""
 import json
 import os
 import sys
@@ -33,10 +34,11 @@ def hexrgb(h):
 
 PAPER = hexrgb(FL["paper"])
 ACCENT = hexrgb(FL["accent"])
-SOFT = (223, 238, 237) if KEY == "sake" else (225, 235, 244)
-INK = (38, 38, 34) if KEY == "sake" else (31, 42, 51)
-INK2 = (87, 87, 80) if KEY == "sake" else (79, 93, 104)
 SMOKE = KEY == "tabako"
+BOTH = KEY == "both"
+SOFT = (225, 235, 244) if SMOKE else (223, 238, 237)
+INK = (31, 42, 51) if SMOKE else (38, 38, 34)
+INK2 = (79, 93, 104) if SMOKE else (87, 87, 80)
 V = FL["verbCrave"]
 
 CAPTIONS = [
@@ -46,6 +48,15 @@ CAPTIONS = [
     ("4_body", "体の変化の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
     ("5_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
 ]
+if BOTH:
+    CAPTIONS = [
+        ("1_home", "お酒もたばこも\nひとつのアプリで", "日数と浮いたお金を、別々に数える"),
+        ("2_craving", "吸いたくなったら\n5分だけ別のことを", "乗り切れた方法が、たまっていく"),
+        ("3_slip", "飲んだ日も責めない\n通算の日数は消えない", "数え直すのは「今回」だけ"),
+        ("4_body", "体の変化の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
+        ("5_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
+        ("6_start", "お酒・たばこ・両方\nはじめに選ぶだけ", "あとから足すこともできます"),
+    ]
 
 
 def capture():
@@ -59,14 +70,19 @@ def capture():
         pg.wait_for_timeout(400)
         pg.screenshot(path=os.path.join(RAW, "1_home.png"))
 
+        if BOTH:
+            pg.click(".pair-card:has-text('たばこ')")
         pg.click(".crave-btn")
         pg.wait_for_selector(".timer")
         pg.locator(".chip-btn").nth(1).click()
         pg.click(".strength button:has-text('3')")
+        pg.evaluate("window.scrollTo(0, 0)")  # 押した所へ流れても、タイマーを写す
         pg.wait_for_timeout(2600)  # タイマーが動いている所
         pg.screenshot(path=os.path.join(RAW, "2_craving.png"))
         pg.click(".topbar .icon")
 
+        if BOTH:
+            pg.click(".pair-card:has-text('お酒')")
         pg.click(".slip-btn")
         pg.wait_for_selector(".gentle")
         pg.fill("textarea", "送別会で断りにくかった")
@@ -75,18 +91,29 @@ def capture():
 
         pg.click(".tab:has-text('体のこと')")
         pg.wait_for_selector(".body")
-        if SMOKE:
+        if BOTH:
+            pg.click(".switch button:has-text('たばこ')")
+        if SMOKE or BOTH:
             pg.evaluate("() => { const e = document.querySelector('.tl'); window.scrollTo(0, e.closest('.card').getBoundingClientRect().top + window.scrollY - 70) }")
         else:
             pg.evaluate("() => { const e = document.querySelectorAll('.quote')[1]; window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 70) }")
         pg.wait_for_timeout(300)
         pg.screenshot(path=os.path.join(RAW, "4_body.png"))
 
+        if BOTH:
+            pg.click(".switch button:has-text('お酒')")
         pg.click(".tab:has-text('記録')")
         pg.wait_for_selector(".chart")
         pg.evaluate("() => { const e = document.querySelector('.chart'); window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 110) }")
         pg.wait_for_timeout(300)
         pg.screenshot(path=os.path.join(RAW, "5_graphs.png"))
+        if BOTH:
+            # はじめに選ぶ画面(記録を消した状態で開く)
+            pg2 = b.new_context(viewport={"width": 430, "height": 932}, device_scale_factor=3, locale="ja-JP").new_page()
+            pg2.goto(URL)
+            pg2.wait_for_selector(".pick")
+            pg2.wait_for_timeout(300)
+            pg2.screenshot(path=os.path.join(RAW, "6_start.png"))
         b.close()
 
 
@@ -147,7 +174,15 @@ def icon(size=1024):
         r1, r2 = 360, 430
         t = math.radians(a - 90)
         d.line([(512 + r1 * math.cos(t), hz + r1 * math.sin(t)), (512 + r2 * math.cos(t), hz + r2 * math.sin(t))], fill=ACCENT, width=26)
-    if SMOKE:
+    if BOTH:
+        # 左に伏せた盃、右に半分に折ったたばこ(お酒もたばこも)
+        d.chord([200, 722, 470, 862], 180, 360, fill=(255, 255, 255), outline=INK, width=11)
+        d.rounded_rectangle([302, 704, 368, 736], 7, fill=INK)
+        d.line([(190, 792), (480, 792)], fill=INK, width=11)
+        d.rounded_rectangle([560, 748, 680, 796], 12, fill=(255, 255, 255), outline=INK, width=10)
+        d.rounded_rectangle([706, 748, 826, 796], 12, fill=(255, 255, 255), outline=INK, width=10)
+        d.rectangle([776, 753, 821, 791], fill=(214, 160, 110))
+    elif SMOKE:
         # 地面に置いた、半分に折ったたばこ(白い棒2本)
         d.rounded_rectangle([250, 738, 480, 792], 14, fill=(255, 255, 255), outline=INK, width=10)
         d.rounded_rectangle([540, 738, 770, 792], 14, fill=(255, 255, 255), outline=INK, width=10)

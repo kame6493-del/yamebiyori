@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
+import { wordsFor } from '../domain/flavor';
 import type { Quote, Source } from '../domain/health';
+import type { Habit } from '../domain/types';
 import { openUrl } from '../platform/native';
 
 export function TopBar(p: { title: string; onClose?: () => void; right?: ReactNode; closeLabel?: string }) {
@@ -9,6 +11,20 @@ export function TopBar(p: { title: string; onClose?: () => void; right?: ReactNo
       <h1>{p.title}</h1>
       <div className="topbar-right">{p.right}</div>
     </header>
+  );
+}
+
+/** 記録・体のことの画面で、どの習慣を見るかを切り替える(2つ以上のときだけ出す) */
+export function HabitSwitch(p: { habits: Habit[]; activeId: string; onSwitch: (id: string) => void }) {
+  if (p.habits.length < 2) return null;
+  return (
+    <div className="switch-row">
+      <div className="switch" role="tablist">
+        {p.habits.map((x) => (
+          <button key={x.id} role="tab" aria-selected={x.id === p.activeId} className={x.id === p.activeId ? 'on' : ''} onClick={() => p.onSwitch(x.id)}>{wordsFor(x.kind, x.name).thing}</button>
+        ))}
+      </div>
+    </div>
   );
 }
 

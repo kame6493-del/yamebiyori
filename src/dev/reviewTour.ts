@@ -8,6 +8,7 @@ import flavor from '../flavor.current.json';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const SMOKE = flavor.kind === 'smoke';
+const BOTH = flavor.kind === 'both';
 
 function tapMark(el: Element) {
   const r = el.getBoundingClientRect();
@@ -76,25 +77,40 @@ function localInput(d: Date) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-export async function runReviewTour() {
-  await sleep(4000); // はじめの画面(注意書きと出典)を見せる
+/** はじめの入力1つ分(やめ始めた日時・お金・理由) */
+async function firstForm(smoke: boolean, daysAgo: number, reason: string, button: string) {
+  await sleep(1500);
   await scrollSlow(400, 1500); await sleep(800);
-
-  // やめ始めた日時: 10日前から
   if (await tap('button', text('前から(日時を選ぶ)'), 1000)) {
-    await fill('input[type="datetime-local"]', localInput(new Date(Date.now() - (10 * 24 + 1) * 3600e3)));
+    await fill('input[type="datetime-local"]', localInput(new Date(Date.now() - (daysAgo * 24 + 1) * 3600e3)));
   }
-  if (SMOKE) {
+  if (smoke) {
     await fill('input[aria-label="1箱の値段"]', '600', true);
     await fill('input[aria-label="1日の本数"]', '20', true);
   } else {
     await fill('input[aria-label="使っていたお金"]', '3500', true);
   }
-  await fill('textarea', '朝すっきり起きたい', true);
-  await tap('button.primary', text('はじめる'), 3500);
+  await fill('textarea', reason, true);
+  await tap('button.primary', text(button), 3500);
+}
 
-  // ホーム: 続いた日数・浮いたお金・理由
+export async function runReviewTour() {
+  await sleep(4000); // はじめの画面を見せる
+  if (BOTH) {
+    // 何をやめるか: 両方 → お酒の入力 → たばこの入力
+    await tap('.pick-btn', text('両方'), 2000);
+    await firstForm(false, 10, '朝すっきり起きたい', 'つぎへ');
+    await firstForm(true, 4, '服のにおいを気にしたくない', 'はじめる');
+  } else {
+    await firstForm(SMOKE, 10, '朝すっきり起きたい', 'はじめる');
+  }
+
+  // ホーム: 続いた日数・浮いたお金・理由。両方のときは、たばこの方も開いて見せてから、お酒に戻す
   await scrollSlow(document.body.scrollHeight, 2500); await sleep(1500); await scrollSlow(0, 1200); await sleep(800);
+  if (BOTH && (await tap('.pair-card', text('たばこ'), 2500))) {
+    await scrollSlow(document.body.scrollHeight, 2500); await sleep(1200); await scrollSlow(0, 1200);
+    await tap('.pair-card', text('お酒'), 2000);
+  }
 
   // 飲みたくなった / 吸いたくなった → 5分タイマー → 乗り切れた
   if (await tap('.crave-btn', undefined, 3000)) {

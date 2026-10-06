@@ -1,4 +1,27 @@
-# やめ日和(お酒 / たばこ)RELEASE
+# やめ日和 RELEASE
+
+## 2026-10-06 お酒とたばこを1本にまとめた(flavor both)
+
+- いきさつ: App Store がお酒(ASC 6819018441)とたばこ(ASC 6819018643)の2本を Guideline 4.3(a) Spam で却下(同じ作りの2本)。持ち主の判断で1本にまとめた。下の「2本に分ける」は当時の判断の記録。
+- 出すのは `flavors/both` だけ。組み方は `node scripts/use-flavor.mjs both && npm run build && npx cap sync && python scripts/patch_native.py both`、Android は `powershell -File scripts/build-android.ps1 -Flavor both`。
+- 残す App Store の記録: jp.yamebiyori.sake(6819018441)。名前を「やめ日和 禁酒・禁煙カウンター」に変える。たばこの記録(6819018643)は出さない(未提出のまま。消す場合は「App を削除」)。
+  - 理由: バンドルIDは記録ごとに固定で、利用者には見えない。お酒の記録には課金アイテム yamebiyori_sake_full と RevenueCat のキーが既にあり、Android でも jp.yamebiyori.sake を同じ署名鍵で更新できる(1.0.1 vc2 と同じ証明書 SHA-256 d0b0bf72…c26a を確認)。どちらを残しても検索の条件は同じなので、作り直しが一番少ない方にした。
+- iOS の殻は flavors/sake/ios をそのまま使う(表示名「やめ日和」・アイコンを both 用に差し替え済み)。Actions の2本(ios-testflight / ios-review-video)は flavor に both を選ぶ(既定も both)。録画は130秒に延ばした(購入画面に着くのが約92秒)。
+- 何が変わったか:
+  - はじめの画面で「お酒 / たばこ / 両方」を選ぶ。両方なら お酒(1/2)→たばこ(2/2)の順に入れ、入れ終えてからまとめて保存。
+  - ホームに2つの数(日数と浮いたお金)と「合わせて浮いたお金」。押すと大きい表示が切り替わる。記録・体のことの画面にも切り替え。
+  - 体のことの出典はそのまま(たばこは e-ヘルスネット t-08-001 / t-06-003 / t-06-002、お酒は a-01-002 / a-01-008 / a-05-001 と飲酒ガイドライン)。
+  - 無料と完全版の線: お酒とたばこを1つずつは無料(両方を無料で数えられる)。完全版はグラフ・記念日の画像・待ち受け・色・そのほかのやめたいこと・同じ種類の2つ目。前は「2つ目から完全版」だったので、完全版の売りが1つ減った。
+  - 課金は yamebiyori_sake_full / entitlement full / RevenueCat はお酒のキーのまま。お酒の版で買った人はそのまま完全版。
+- 記録の引き継ぎ:
+  - 保存の名前は yamebiyori.both.v1。初めて開いたとき、これが空なら前の版の yamebiyori.sake.v1 / yamebiyori.tabako.v1(と .prev)を読んでまとめる。前の版の記録は消さずに残す。「すべての記録を消す」は前の版の分も消す。
+  - Android のお酒版(jp.yamebiyori.sake)を入れていたテスターは、1.1.0(vc3)への更新でそのまま記録が続く。
+  - たばこ版(jp.yamebiyori.tabako)は別のアプリなので端末内の記録は自動では移らない。たばこ版の「控えを書き出す」→ 統合版の「控えを読み込む」→「今の記録に足す」で移せる(同じ控えを2回足しても重ならない)。iOS は公開前なので引き継ぐ人はいない。
+- 確かめたこと: vitest 31件 通過 / 製品ビルド通過 / `scripts/e2e.py`(both)73項目 NG 0(選ぶ画面・両方の入力・ホームの2つの数・切り替え・体のことの表・控えの足し込み・前のお酒版の記録の引き継ぎ・全部消すと前の版も消える)/ `scripts/e2e_premium.py` NG 0 / `scripts/check_store.py` NG 0 / 審査用ツアー(check_review_tour.py)が購入画面まで進む / AAB releases/yamebiyori-both-1.1.0-vc3.aab(jp.yamebiyori.sake・vc3・1.1.0・表示名 やめ日和・見本データなし)。
+- 掲載文: store/listing_merged.md。素材: store/both/(アイコン・iPhone 6枚・Play 6枚・フィーチャー)。審査への返信文: tools/review_notes_merged.txt。
+
+# 以下は2本に分けていたときの記録
+
 
 作成 2026-10-03〜04。10案の7位「禁酒・断酒・禁煙の記録」。
 

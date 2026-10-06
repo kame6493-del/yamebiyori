@@ -29,14 +29,25 @@ export function Home(p: {
     <div className="page home">
       <header className="home-head">
         <div className="brand"><span className="brand-name">やめ日和</span></div>
-        {p.habits.length > 1 && (
-          <div className="switch" role="tablist">
-            {p.habits.map((x) => (
-              <button key={x.id} role="tab" aria-selected={x.id === h.id} className={x.id === h.id ? 'on' : ''} onClick={() => p.onSwitch(x.id)}>{wordsFor(x.kind, x.name).thing}</button>
-            ))}
-          </div>
-        )}
       </header>
+
+      {p.habits.length > 1 && (
+        <section className="pair" aria-label="やめていること">
+          <div className="pair-list" role="tablist">
+            {p.habits.map((x) => {
+              const xs = computeStats(x, p.now);
+              return (
+                <button key={x.id} role="tab" aria-selected={x.id === h.id} className={`pair-card ${x.id === h.id ? 'on' : ''}`} onClick={() => p.onSwitch(x.id)}>
+                  <span className="pair-thing">{wordsFor(x.kind, x.name).thing}</span>
+                  <span className="pair-days"><b>{xs.streakDays}</b>日</span>
+                  <span className="pair-yen">{formatYen(xs.savedYen)}</span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="pair-total small">合わせて浮いたお金 <b>{formatYen(p.habits.reduce((a, x) => a + computeStats(x, p.now).savedYen, 0))}</b></p>
+        </section>
+      )}
 
       {fresh && (
         <section className="celebrate">
@@ -96,7 +107,7 @@ export function Home(p: {
       {!p.premium && (
         <button className="unlock" onClick={p.onUnlock}>
           <b>完全版 買い切り</b>
-          <span>グラフ・記念日の画像・待ち受け画像・色の変更・お酒とたばこの両方の記録</span>
+          <span>グラフ・記念日の画像・待ち受け画像・色の変更・お酒とたばこのほかのやめたいことも記録</span>
         </button>
       )}
     </div>

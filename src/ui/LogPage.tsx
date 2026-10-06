@@ -4,12 +4,13 @@ import { MILESTONES, milestoneTime } from '../domain/milestones';
 import { computeStats, dayMarks, savingsSeries, summarizeCravings } from '../domain/stats';
 import type { Habit } from '../domain/types';
 import { BarChart, SavingsChart } from './Charts';
-import { fmtDate, Locked, TopBar } from './common';
+import { fmtDate, HabitSwitch, Locked, TopBar } from './common';
 
 const WD = ['日', '月', '火', '水', '木', '金', '土'];
 
 export function LogPage(p: {
-  habit: Habit; now: number; premium: boolean;
+  habit: Habit; habits: Habit[]; now: number; premium: boolean;
+  onSwitch: (id: string) => void;
   onUnlock: () => void; onCard: (days: number) => void; onWallpaper: () => void; onRemoveSlip: (id: string) => void; onRemoveCraving: (id: string) => void;
 }) {
   const h = p.habit;
@@ -32,6 +33,7 @@ export function LogPage(p: {
   return (
     <div className="page log">
       <TopBar title="記録" />
+      <HabitSwitch habits={p.habits} activeId={h.id} onSwitch={p.onSwitch} />
 
       <section className="card cal">
         <div className="cal-head">

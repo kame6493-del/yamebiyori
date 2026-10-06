@@ -1,20 +1,26 @@
 ﻿# やめ日和の Android 公開用ビルド(署名済み AAB と動作確認用 APK)。powershell -File scripts/build-android.ps1 -Flavor sake
-# 先に node scripts/use-flavor.mjs <sake|tabako> と npm run build・npx cap sync android を済ませておく。
+# 先に node scripts/use-flavor.mjs <both|sake|tabako> と npm run build・npx cap sync android を済ませておく。
 # - JDK と SDK は DIAMOND NINE 用に入っている物を読むだけで使う
 # - 署名鍵はやめ日和専用・アプリごと。%LOCALAPPDATA%\YamebiyoriBuild\signing\<flavor>\ に置き、パスワードは DPAPI(このWindowsユーザーだけが復号できる)で保存
 # - 鍵を上書き・作り直ししない。無くしたら Play Console で「アップロード鍵のリセット」を申請することになる
 # - 鍵とパスワードの値は画面にもファイルにも書き出さない
 # - プロジェクトのパスに日本語があると Gradle が止まるので、一時ドライブ(subst)で英字のパスに見せる。終わったら外す
-param([Parameter(Mandatory = $true)][ValidateSet('sake', 'tabako')][string]$Flavor)
+param([Parameter(Mandatory = $true)][ValidateSet('both', 'sake', 'tabako')][string]$Flavor)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
+# both はお酒とたばこを1本にした版。殻も署名鍵も jp.yamebiyori.sake の物を使う(同じアプリの更新として出すため)
+$fl = Get-Content (Join-Path $repo "flavors\$Flavor\flavor.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+$native = if ($fl.native) { $fl.native } else { $Flavor }
+$gradleText = Get-Content (Join-Path $repo "flavors\$native\android\app\build.gradle") -Raw
+$vName = [regex]::Match($gradleText, 'versionName "([^"]+)"').Groups[1].Value
+$vCode = [regex]::Match($gradleText, 'versionCode (\d+)').Groups[1].Value
 $tools = Join-Path $env:LOCALAPPDATA 'Packages\OpenAI.Codex_2p2nqsd0c76g0\LocalCache\Local\DiamondNineBuild'
 if (!(Test-Path "$tools\java")) { $tools = Join-Path $env:LOCALAPPDATA 'DiamondNineBuild' }
 $env:JAVA_HOME = (Get-ChildItem "$tools\java" -Directory | Select-Object -First 1).FullName
 $env:ANDROID_HOME = "$tools\android-sdk"
 if (!(Test-Path "$env:JAVA_HOME\bin\java.exe")) { throw 'JDK が見つかりません' }
 
-$secretDir = Join-Path $env:LOCALAPPDATA "YamebiyoriBuild\signing\$Flavor"
+$secretDir = Join-Path $env:LOCALAPPDATA "YamebiyoriBuild\signing\$native"
 New-Item -ItemType Directory -Force $secretDir | Out-Null
 $store = Join-Path $secretDir 'yamebiyori-upload.jks'
 $passFile = Join-Path $secretDir 'upload-password.dpapi'
@@ -44,15 +50,15 @@ foreach ($l in 'Y', 'X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q') { if (!(Test-Path "$
 if (!$drive) { throw '空いているドライブ文字がありません' }
 subst $drive (Split-Path $repo -Parent)
 try {
-  $proj = "$drive\$(Split-Path $repo -Leaf)\flavors\$Flavor\android"
+  $proj = "$drive\$(Split-Path $repo -Leaf)\flavors\$native\android"
   "sdk.dir=$($env:ANDROID_HOME -replace '\\','/')" | Out-File -Encoding ascii "$proj\local.properties"
   $err = Join-Path $env:TEMP "yb_release_err_$Flavor.txt"
   $p = Start-Process -FilePath "$proj\gradlew.bat" -ArgumentList ':app:assembleRelease', ':app:bundleRelease', '--no-daemon', '-q' -WorkingDirectory $proj -NoNewWindow -Wait -PassThru -RedirectStandardError $err
   if ($p.ExitCode -ne 0) { Get-Content $err -Tail 30; throw "Gradle が失敗しました (exit $($p.ExitCode))" }
   $out = Join-Path $repo 'releases'
   New-Item -ItemType Directory -Force $out | Out-Null
-  Copy-Item "$proj\app\build\outputs\bundle\release\app-release.aab" "$out\yamebiyori-$Flavor-1.0.1-vc2.aab" -Force
-  Copy-Item "$proj\app\build\outputs\apk\release\app-release.apk" "$out\yamebiyori-$Flavor-1.0.1-vc2.apk" -Force
+  Copy-Item "$proj\app\build\outputs\bundle\release\app-release.aab" "$out\yamebiyori-$Flavor-$vName-vc$vCode.aab" -Force
+  Copy-Item "$proj\app\build\outputs\apk\release\app-release.apk" "$out\yamebiyori-$Flavor-$vName-vc$vCode.apk" -Force
   Write-Output "出力: $out"
 } finally {
   subst $drive /D

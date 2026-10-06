@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { activeHabit, addCoping, addCraving, addHabit, addSlip, canAddHabit, emptyData, exportBackup, importBackup, newHabit, removeCraving, removeHabit, removeSlip, updateHabit, visibleHabits } from './domain/data';
+import { activeHabit, addCoping, addCraving, addHabit, addHabits, addSlip, canAddFree, canAddHabit, emptyData, exportBackup, importBackup, mergeData, newHabit, removeCraving, removeHabit, removeSlip, updateHabit, visibleHabits } from './domain/data';
 import { FLAVOR, wordsFor } from './domain/flavor';
 import { planMilestoneNotices } from './domain/milestones';
 import { computeStats } from './domain/stats';
@@ -12,6 +12,7 @@ import { BodyPage } from './ui/BodyPage';
 import { TabBar, type Tab } from './ui/common';
 import { Craving } from './ui/Craving';
 import { HabitForm, type HabitFields } from './ui/HabitForm';
+import { Onboarding } from './ui/Onboarding';
 import { Home } from './ui/Home';
 import { LogPage } from './ui/LogPage';
 import { Paywall } from './ui/Paywall';
@@ -87,7 +88,7 @@ export default function App() {
   if (data.habits.length === 0) {
     return (
       <div className="app">
-        <HabitForm mode="first" now={now} onSave={(f) => { commit(addHabit(data, fieldsToHabit(f))); setNow(Date.now()); }} />
+        <Onboarding now={now} onDone={(fs) => { commit(addHabits(data, fs.map(fieldsToHabit))); setNow(Date.now()); }} />
       </div>
     );
   }
@@ -121,7 +122,7 @@ export default function App() {
   } else if (overlay?.t === 'paywall') {
     page = <Paywall billing={billing} onClose={close} onBought={() => { setBilling((b) => (b.status === 'ready' ? { ...b, premium: true } : b)); close(); say('完全版をひらきました。ありがとうございます。'); }} />;
   } else if (overlay?.t === 'add') {
-    page = <HabitForm mode="add" now={now} onCancel={close} onSave={(f) => { commit(addHabit(data, fieldsToHabit(f))); close(); setTab('home'); }} />;
+    page = <HabitForm mode="add" now={now} canUse={(k) => canAddHabit(data, premium, k)} onUnlock={unlock} onCancel={close} onSave={(f) => { commit(addHabit(data, fieldsToHabit(f))); close(); setTab('home'); }} />;
   } else if (overlay?.t === 'edit') {
     const target = data.habits.find((x) => x.id === overlay.id);
     if (target) {
@@ -152,13 +153,14 @@ export default function App() {
           onCard={(days) => setOverlay(premium ? { t: 'card', days } : { t: 'paywall' })} onBody={() => setTab('body')} />
       )}
       {tab === 'log' && (
-        <LogPage habit={h} now={now} premium={premium} onUnlock={unlock}
+        <LogPage habit={h} habits={habits} now={now} premium={premium} onUnlock={unlock}
+          onSwitch={(id) => commit({ ...data, activeId: id })}
           onCard={(days) => setOverlay({ t: 'card', days })} onWallpaper={() => setOverlay({ t: 'wall' })}
           onRemoveSlip={(id) => commit(removeSlip(data, h.id, id))} onRemoveCraving={(id) => commit(removeCraving(data, h.id, id))} />
       )}
-      {tab === 'body' && <BodyPage habit={h} now={now} />}
+      {tab === 'body' && <BodyPage habit={h} habits={habits} now={now} onSwitch={(id) => commit({ ...data, activeId: id })} />}
       {tab === 'settings' && (
-        <SettingsPage data={data} habits={habits} premium={premium} notifyMsg={notifyMsg}
+        <SettingsPage data={data} habits={habits} premium={premium} canAddFree={canAddFree(data)} notifyMsg={notifyMsg}
           onNotify={(on, time) => commit({ ...data, settings: { ...data.settings, notify: on, notifyTime: time } })}
           onTheme={(id) => commit({ ...data, settings: { ...data.settings, theme: id } })}
           onEdit={(id) => setOverlay({ t: 'edit', id })}
@@ -171,11 +173,16 @@ export default function App() {
             } catch (e) { say(`復元できませんでした(${(e as Error).message ?? e})`); }
           }}
           onExport={async () => {
-            try { await shareText(exportBackup(data, FLAVOR.key), `yamebiyori_${FLAVOR.key}_backup.json`); say('控えを書き出しました'); }
+            try { await shareText(exportBackup(data, FLAVOR.key), FLAVOR.key === 'both' ? 'yamebiyori_backup.json' : `yamebiyori_${FLAVOR.key}_backup.json`); say('控えを書き出しました'); }
             catch (e) { say(`書き出せませんでした(${(e as Error).message ?? e})`); }
           }}
-          onImport={(text) => {
-            try { commit(importBackup(text)); say('控えを読み込みました'); setTab('home'); }
+          onImport={(text, how) => {
+            try {
+              const got = importBackup(text);
+              commit(how === 'merge' ? mergeData(data, got) : got);
+              say(how === 'merge' ? '控えの記録を足しました' : '控えを読み込みました');
+              setTab('home');
+            }
             catch (e) { say((e as Error).message); }
           }}
           onClearAll={async () => { await clearData(); setData(emptyData()); setTab('home'); }} />

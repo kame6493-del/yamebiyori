@@ -1,0 +1,17 @@
+(App Store Connect の「App Review への返信」に貼る英語。jp.yamebiyori.sake の記録 6819018441 で、新しいビルドを選んでから送る)
+
+Thank you for the review. We understand the concern under Guideline 4.3(a).
+
+We have merged the two apps into one. "やめ日和 お酒" (alcohol) and "やめ日和 たばこ" (tobacco) are no longer submitted as separate apps. This build of "やめ日和 禁酒・禁煙カウンター" (this app record) lets the user choose on the first screen what they want to quit: alcohol, tobacco, or both. Users who choose both get two separate counters (days, money saved, cravings, records and health information with sources for each) in the same app, and the Full Version purchase applies to both.
+
+The other app record (やめ日和 禁煙カウンター・卒煙記録, Apple ID 6819018643) will not be submitted again or released.
+
+Changes in this build:
+- First screen: "何をやめますか" (What do you want to quit?) with お酒 (alcohol) / たばこ (tobacco) / 両方 (both).
+- Home: when both are tracked, two cards show each counter and the total money saved; tapping a card switches the main view.
+- Records and Health tabs: a switch at the top to choose alcohol or tobacco.
+- In-App Purchase: the same single non-consumable product "完全版" (yamebiyori_sake_full, JPY 600). Tracking both alcohol and tobacco is free; the Full Version adds charts, milestone and wallpaper images, color themes and tracking other habits.
+
+How to review: launch the app, tap "両方" (both), fill in the alcohol screen and tap "つぎへ" (next), fill in the tobacco screen and tap "はじめる" (start). No login or account is needed. A screen recording of this flow is attached.
+
+The rest of our previous answers (purpose, external services, health information sources from Japan's Ministry of Health, Labour and Welfare, age 20+ audience) is unchanged.

@@ -1,4 +1,5 @@
-"""ネイティブ設定を書き換える。python scripts/patch_native.py sake|tabako
+"""ネイティブ設定を書き換える。python scripts/patch_native.py both|sake|tabako
+both は flavors/both/flavor.json の native(sake)の殻に、統合版の名前・アイコン・版番号を入れる。
 (縦固定・日本語・ホーム画面の名前・版番号・署名の受け口・写真保存の説明文・アイコンと起動画面)。
 何度流しても同じ結果になる。npx cap add の直後に1回流す。広告は入れていない。"""
 import json
@@ -10,8 +11,8 @@ from PIL import Image
 
 APP = Path(__file__).resolve().parent.parent
 KEY = sys.argv[1]
-ROOT = APP / "flavors" / KEY
-FL = json.loads((ROOT / "flavor.json").read_text(encoding="utf-8"))
+FL = json.loads((APP / "flavors" / KEY / "flavor.json").read_text(encoding="utf-8"))
+ROOT = APP / "flavors" / FL.get("native", KEY)
 NAME = FL["appName"]
 ICON = APP / "store" / KEY / "icon_1024.png"
 PAPER = FL["paper"]
@@ -46,8 +47,8 @@ strings.write_text(s, encoding="utf-8", newline="\n")
 
 gradle = A / "app/build.gradle"
 s = gradle.read_text(encoding="utf-8")
-s = re.sub(r"versionCode \d+", "versionCode 1", s)
-s = re.sub(r'versionName "[^"]*"', 'versionName "1.0.0"', s)
+s = re.sub(r"versionCode \d+", f"versionCode {FL.get('androidVersionCode', 1)}", s)
+s = re.sub(r'versionName "[^"]*"', f'versionName "{FL.get("androidVersionName", "1.0.0")}"', s)
 gradle.write_text(s, encoding="utf-8", newline="\n")
 patch(gradle, [
     ("    buildTypes {\n        release {\n            minifyEnabled false",

@@ -1,9 +1,9 @@
 import { ALCOHOL_TIPS, APP_NOTE, CAUTION, quotesFor, timelineProgress, TOBACCO_ALTERNATIVES, TOBACCO_TIMELINE } from '../domain/health';
 import { computeStats, formatDuration } from '../domain/stats';
 import type { Habit } from '../domain/types';
-import { Cite, QuoteCard, TopBar } from './common';
+import { Cite, HabitSwitch, QuoteCard, TopBar } from './common';
 
-export function BodyPage(p: { habit: Habit; now: number }) {
+export function BodyPage(p: { habit: Habit; habits: Habit[]; now: number; onSwitch: (id: string) => void }) {
   const h = p.habit;
   const s = computeStats(h, p.now);
   const tl = timelineProgress(s.streakMs);
@@ -11,6 +11,7 @@ export function BodyPage(p: { habit: Habit; now: number }) {
   return (
     <div className="page body">
       <TopBar title="体の変化の目安" />
+      <HabitSwitch habits={p.habits} activeId={h.id} onSwitch={p.onSwitch} />
       <p className="note">{APP_NOTE}</p>
 
       {h.kind === 'smoke' && (

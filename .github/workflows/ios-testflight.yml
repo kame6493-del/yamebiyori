@@ -1,4 +1,4 @@
-# やめ日和(お酒 / たばこ)の iOS 版を GitHub のクラウド Mac で組み立て、TestFlight へ送る。flavor に flavors/ の下のフォルダ名を入れる。
+# やめ日和の iOS 版(both = お酒とたばこを1本にした版。出すのはこれ。殻は flavors/sake/ios)を GitHub のクラウド Mac で組み立て、TestFlight へ送る。flavor に flavors/ の下のフォルダ名を入れる。
 # 持ち主は Mac を持っていないので、これが iOS を組み立てる唯一の道。Actions の画面から手で実行する。
 # 必要なシークレット4つ(ASC_KEY_ID / ASC_ISSUER_ID / APPLE_TEAM_ID / ASC_KEY_P8_BASE64)はニガテ帳と同じ。準備は RELEASE.md の「iOS」を参照。
 name: iOS TestFlight
@@ -9,8 +9,8 @@ on:
       flavor:
         description: "どのアプリか(flavors の下のフォルダ名)"
         type: choice
-        options: [sake, tabako]
-        default: sake
+        options: [both, sake, tabako]
+        default: both
       compile_only:
         description: "署名もアップロードもせずにコンパイルだけ試す(Apple のシークレット不要)"
         type: boolean
@@ -41,6 +41,7 @@ jobs:
       - name: Test, build web assets and sync the iOS project
         run: |
           node scripts/use-flavor.mjs "${{ inputs.flavor }}"
+          echo "NATIVE=$(node -p "require('./flavors/${{ inputs.flavor }}/flavor.json').native || '${{ inputs.flavor }}'")" >> "$GITHUB_ENV"
           npm test
           npm run build
           npx cap sync ios
@@ -49,7 +50,7 @@ jobs:
         if: inputs.compile_only
         run: |
           xcodebuild build \
-            -project flavors/${{ inputs.flavor }}/ios/App/App.xcodeproj \
+            -project flavors/${{ env.NATIVE }}/ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
             -destination 'generic/platform=iOS' \
@@ -74,7 +75,7 @@ jobs:
         if: ${{ !inputs.compile_only }}
         run: |
           xcodebuild archive \
-            -project flavors/${{ inputs.flavor }}/ios/App/App.xcodeproj \
+            -project flavors/${{ env.NATIVE }}/ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
             -destination 'generic/platform=iOS' \
@@ -86,10 +87,10 @@ jobs:
       - name: Export and upload to TestFlight
         if: ${{ !inputs.compile_only }}
         run: |
-          plutil -replace teamID -string "$APPLE_TEAM_ID" flavors/${{ inputs.flavor }}/ios/ExportOptions.plist
+          plutil -replace teamID -string "$APPLE_TEAM_ID" flavors/${{ env.NATIVE }}/ios/ExportOptions.plist
           xcodebuild -exportArchive \
             -archivePath "$RUNNER_TEMP/App.xcarchive" \
-            -exportOptionsPlist flavors/${{ inputs.flavor }}/ios/ExportOptions.plist \
+            -exportOptionsPlist flavors/${{ env.NATIVE }}/ios/ExportOptions.plist \
             -exportPath "$RUNNER_TEMP/export" \
             -allowProvisioningUpdates \
             -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_$ASC_KEY_ID.p8" \

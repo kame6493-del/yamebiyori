@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FLAVOR, wordsFor } from '../domain/flavor';
+import { BASE_KINDS, wordsFor } from '../domain/flavor';
 import { CAUTION } from '../domain/health';
 import { yenPerDayFromPack } from '../domain/stats';
 import type { Habit, HabitKind } from '../domain/types';
@@ -13,12 +13,24 @@ export function HabitForm(p: {
   mode: 'first' | 'add' | 'edit';
   initial?: Habit;
   now: number;
+  /** はじめの画面: 何をやめるかは前の画面で決めてある */
+  kind?: HabitKind;
+  /** はじめの画面で、アプリの紹介を上に出す(選ぶ画面が無いとき) */
+  intro?: boolean;
+  /** はじめの画面で、いくつ目か(例: 1/2) */
+  step?: string;
+  saveLabel?: string;
+  /** 足す画面: 無料で足せる種類か。だめな物は完全版の案内へ */
+  canUse?: (k: HabitKind) => boolean;
+  onUnlock?: () => void;
   onSave: (f: HabitFields) => void;
   onCancel?: () => void;
   onDelete?: () => void;
 }) {
   const init = p.initial;
-  const [kind, setKind] = useState<HabitKind>(init?.kind ?? (p.mode === 'add' ? (FLAVOR.kind === 'alcohol' ? 'smoke' : 'alcohol') : FLAVOR.kind));
+  const canUse = p.canUse ?? (() => true);
+  const firstAdd = (['alcohol', 'smoke', 'custom'] as HabitKind[]).find((k) => canUse(k)) ?? 'custom';
+  const [kind, setKind] = useState<HabitKind>(init?.kind ?? p.kind ?? (p.mode === 'add' ? firstAdd : BASE_KINDS[0]));
   const [name, setName] = useState(init?.name ?? '');
   const [startMode, setStartMode] = useState<'now' | 'past'>(init ? 'past' : 'now');
   const [start, setStart] = useState(toLocalInput(init?.startAt ?? new Date(p.now).toISOString()));
@@ -37,8 +49,11 @@ export function HabitForm(p: {
     ? yenPerDayFromPack(Number(packYen), Number(perDay), Number(perPack))
     : Math.round((Number(yen) || 0) / (usePeriod && period === 'week' ? 7 : 1));
 
+  const locked = p.mode === 'add' && !canUse(kind);
+
   const save = () => {
     setErr('');
+    if (locked) return p.onUnlock?.();
     if (kind === 'custom' && !name.trim()) return setErr('やめたいことの名前を入れてください');
     const startAt = startMode === 'now' && !init ? new Date().toISOString() : fromLocalInput(start);
     if (!startAt) return setErr('やめ始めた日時を選んでください');
@@ -50,14 +65,14 @@ export function HabitForm(p: {
     });
   };
 
-  const title = p.mode === 'first' ? `${FLAVOR.appName}へようこそ` : p.mode === 'add' ? 'やめたいことを足す' : `${w.thing}の設定`;
+  const title = p.mode === 'first' ? `${w.thing}のこと${p.step ? `(${p.step})` : ''}` : p.mode === 'add' ? 'やめたいことを足す' : `${w.thing}の設定`;
 
   return (
     <div className="page form">
-      {p.mode === 'first' ? (
+      {p.mode === 'first' && p.intro ? (
         <section className="welcome">
           <p className="brand-name big">やめ日和</p>
-          <p className="welcome-lead">{FLAVOR.thing}をやめた日を、数えていきます。<br />もし{w.verbUse}日があっても、それまでの日は消えません。</p>
+          <p className="welcome-lead">{w.thing}をやめた日を、数えていきます。<br />もし{w.verbUse}日があっても、それまでの日は消えません。</p>
         </section>
       ) : (
         <TopBar title={title} onClose={p.onCancel} />
@@ -71,10 +86,12 @@ export function HabitForm(p: {
               <button key={k} className={kind === k ? 'on' : ''} onClick={() => setKind(k)}>{k === 'alcohol' ? 'お酒' : k === 'smoke' ? 'たばこ' : 'そのほか'}</button>
             ))}
           </div>
-          {kind === 'custom' && <input className="input" placeholder="例: 甘いジュース、夜ふかし" value={name} maxLength={20} onChange={(e) => setName(e.target.value)} />}
+          {kind === 'custom' && !locked && <input className="input" placeholder="例: 甘いジュース、夜ふかし" value={name} maxLength={20} onChange={(e) => setName(e.target.value)} />}
+          {locked && <p className="small muted">{kind === 'custom' ? 'お酒とたばこのほかのやめたいことは、完全版で記録できます。' : `${w.thing}はもう記録しています。2つ目からは完全版で記録できます。`}</p>}
         </fieldset>
       )}
 
+      {!locked && (<>
       <fieldset className="field">
         <legend>いつからやめていますか</legend>
         {!init && (
@@ -112,15 +129,16 @@ export function HabitForm(p: {
 
       <fieldset className="field">
         <legend>やめたい理由(つらい時に読み返します)</legend>
-        <textarea className="input" rows={2} maxLength={120} placeholder="例: 朝すっきり起きたい。子どもと公園に行きたい。" value={reason} onChange={(e) => setReason(e.target.value)} />
+        <textarea className="input" rows={2} maxLength={120} placeholder={kind === 'smoke' ? '例: 子どもと思いきり走りたい。服のにおいを気にしたくない。' : '例: 朝すっきり起きたい。子どもと公園に行きたい。'} value={reason} onChange={(e) => setReason(e.target.value)} />
       </fieldset>
 
       {p.mode !== 'edit' && kind !== 'custom' && <QuoteCard q={CAUTION[kind]} className={kind === 'alcohol' ? 'caution' : ''} />}
       {p.mode !== 'edit' && kind === 'alcohol' && <p className="small caution-note">毎日たくさん飲んでいた方は、急にやめる前に医療機関や専門の窓口に相談してください。</p>}
+      </>)}
 
       {err && <p className="err" role="alert">{err}</p>}
       <div className="form-actions">
-        <button className="btn primary wide big" onClick={save}>{p.mode === 'edit' ? '保存する' : 'はじめる'}</button>
+        <button className="btn primary wide big" onClick={save}>{locked ? '完全版について' : p.saveLabel ?? (p.mode === 'edit' ? '保存する' : 'はじめる')}</button>
         {p.onDelete && <button className="btn danger wide" onClick={p.onDelete}>この記録を消す</button>}
       </div>
     </div>

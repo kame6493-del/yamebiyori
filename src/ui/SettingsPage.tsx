@@ -8,7 +8,7 @@ import { openUrl } from '../platform/native';
 import { TopBar } from './common';
 
 export function SettingsPage(p: {
-  data: AppData; habits: Habit[]; premium: boolean; notifyMsg: string;
+  data: AppData; habits: Habit[]; premium: boolean; canAddFree: boolean; notifyMsg: string;
   onNotify: (on: boolean, time: string) => void;
   onTheme: (id: string) => void;
   onEdit: (id: string) => void;
@@ -16,7 +16,7 @@ export function SettingsPage(p: {
   onUnlock: () => void;
   onRestore: () => void;
   onExport: () => void;
-  onImport: (text: string) => void;
+  onImport: (text: string, how: 'replace' | 'merge') => void;
   onClearAll: () => void;
 }) {
   const st = p.data.settings;
@@ -44,7 +44,7 @@ export function SettingsPage(p: {
           ))}
         </ul>
         {hidden > 0 && <p className="small muted">ほかに{hidden}件の記録があります(完全版で開けます。消してはいません)。</p>}
-        <button className="btn small wide" onClick={p.premium ? p.onAdd : p.onUnlock}>＋ やめたいことを足す{p.premium ? '' : '(完全版)'}</button>
+        <button className="btn small wide" onClick={p.onAdd}>＋ やめたいことを足す{p.premium || p.canAddFree ? '' : '(完全版)'}</button>
       </section>
 
       <section className="card">
@@ -74,7 +74,7 @@ export function SettingsPage(p: {
 
       <section className="card">
         <p className="card-h">控え(機種変更のとき)</p>
-        <p className="small muted">記録はこの端末の中だけにあります。機種を変える前に控えを書き出して、新しい端末で読み込んでください。</p>
+        <p className="small muted">記録はこの端末の中だけにあります。機種を変える前に控えを書き出して、新しい端末で読み込んでください。前の「やめ日和 お酒」「やめ日和 たばこ」の控えも読み込めます。</p>
         <div className="two-btn">
           <button className="btn small" onClick={p.onExport}>控えを書き出す</button>
           <button className="btn small" onClick={() => setImportOpen(!importOpen)}>控えを読み込む</button>
@@ -83,7 +83,10 @@ export function SettingsPage(p: {
           <div className="import">
             <input type="file" accept=".json,application/json,text/plain" aria-label="控えのファイル" onChange={(e) => readFile(e.target.files?.[0])} />
             <textarea className="input" rows={3} placeholder="控えの中身を貼り付けてもかまいません" value={text} onChange={(e) => setText(e.target.value)} />
-            <button className="btn small primary" disabled={!text.trim()} onClick={() => { if (confirm('今の記録を、控えの内容で置き換えますか')) p.onImport(text); }}>この控えで置き換える</button>
+            <div className="two-btn">
+              <button className="btn small primary" disabled={!text.trim()} onClick={() => p.onImport(text, 'merge')}>今の記録に足す</button>
+              <button className="btn small" disabled={!text.trim()} onClick={() => { if (confirm('今の記録を、控えの内容で置き換えますか')) p.onImport(text, 'replace'); }}>この控えで置き換える</button>
+            </div>
           </div>
         )}
       </section>

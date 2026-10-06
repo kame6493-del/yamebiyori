@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addCraving, addHabit, addSlip, canAddHabit, emptyData, exportBackup, importBackup, newHabit, normalize, removeSlip, visibleHabits, activeHabit } from './data';
+import { addCraving, addHabit, addHabits, addSlip, canAddFree, canAddHabit, emptyData, exportBackup, importBackup, mergeData, newHabit, normalize, removeSlip, visibleHabits, activeHabit } from './data';
 import { MILESTONES, milestoneTime, nextMilestone, planMilestoneNotices, reachedMilestones } from './milestones';
 import { computeStats, dayMarks, DAY, formatDuration, formatYen, HOUR, MIN, savingsSeries, summarizeCravings, yenPerDayFromPack } from './stats';
 import { TOBACCO_TIMELINE, timelineProgress, QUOTES, CAUTION, SRC } from './health';
@@ -222,19 +222,93 @@ describe('体の変化の表(出典の原文)', () => {
   });
 });
 
-describe('習慣の数と完全版', () => {
-  it('無料は1つ。完全版は何個でも。完全版でなくなっても記録は消さず最初の1つを開く', () => {
+describe('習慣の数と完全版(お酒とたばこを1本で)', () => {
+  const smoke = () => newHabit({ kind: 'smoke', name: 'たばこ', startAt: iso(T0), yenPerDay: 600 });
+  const custom = () => newHabit({ kind: 'custom', name: '甘いジュース', startAt: iso(T0), yenPerDay: 150 });
+
+  it('無料でお酒とたばこを両方数えられる。そのほか・同じ種類の2つ目は完全版', () => {
     const a = habit();
-    const b = newHabit({ kind: 'smoke', name: 'たばこ', startAt: iso(T0), yenPerDay: 600 });
     let d = addHabit(emptyData(), a);
+    expect(canAddFree(d)).toBe(true);
+    expect(canAddHabit(d, false, 'smoke')).toBe(true);
+    expect(canAddHabit(d, false, 'alcohol')).toBe(false);
+    expect(canAddHabit(d, false, 'custom')).toBe(false);
+    expect(canAddHabit(d, true, 'custom')).toBe(true);
+    const b = smoke();
+    d = addHabit(d, b);
+    expect(canAddFree(d)).toBe(false);
     expect(canAddHabit(d, false)).toBe(false);
     expect(canAddHabit(d, true)).toBe(true);
+    expect(visibleHabits(d, false).map((h) => h.id)).toEqual([a.id, b.id]);
+  });
+
+  it('完全版でなくなっても記録は消さず、お酒とたばこの最初の1つずつを開く', () => {
+    const a = habit();
+    const c = custom();
+    const b = smoke();
+    const a2 = newHabit({ kind: 'alcohol', name: 'お酒', startAt: iso(T0), yenPerDay: 1 });
+    let d = addHabit(emptyData(), a);
+    d = addHabit(d, c);
     d = addHabit(d, b);
-    expect(d.activeId).toBe(b.id);
-    expect(visibleHabits(d, false).map((h) => h.id)).toEqual([a.id]);
-    expect(activeHabit(d, false)?.id).toBe(a.id);
-    expect(activeHabit(d, true)?.id).toBe(b.id);
-    expect(d.habits).toHaveLength(2);
+    d = addHabit(d, a2);
+    expect(visibleHabits(d, true)).toHaveLength(4);
+    expect(visibleHabits(d, false).map((h) => h.id)).toEqual([a.id, b.id]);
+    expect(activeHabit(d, false)?.id).toBe(a.id); // 開いていた a2 は閉じたので、最初の物
+    expect(activeHabit(d, true)?.id).toBe(a2.id);
+    expect(d.habits).toHaveLength(4);
+  });
+
+  it('そのほかしか無い記録でも、無料で1つは開く', () => {
+    const d = addHabit(emptyData(), custom());
+    expect(visibleHabits(d, false)).toHaveLength(1);
+  });
+
+  it('はじめの画面で「両方」を選ぶと2つ入り、ホームは最初の物(お酒)から', () => {
+    const a = habit();
+    const b = smoke();
+    const d = addHabits(emptyData(), [a, b]);
+    expect(d.habits.map((h) => h.kind)).toEqual(['alcohol', 'smoke']);
+    expect(d.activeId).toBe(a.id);
+    expect(addHabits(d, [])).toBe(d);
+  });
+});
+
+describe('前の版(お酒 / たばこ)からの引き継ぎ', () => {
+  it('お酒の版とたばこの版の記録を1つにまとめる。記録の中身はそのまま', () => {
+    const a = habit(700);
+    let sake = addHabit(emptyData(), a);
+    sake = addSlip(sake, a.id, { at: iso(T0 + DAY), amount: 2 });
+    sake = { ...sake, settings: { ...sake.settings, notifyTime: '08:30' } };
+    const b = newHabit({ kind: 'smoke', name: 'たばこ', startAt: iso(T0), yenPerDay: 600 });
+    const tabako = addCraving(addHabit(emptyData(), b), b.id, { at: iso(T0 + DAY), strength: 3, scene: '食事の後', coping: '深呼吸', outcome: 'passed' });
+
+    const fromEmpty = mergeData(emptyData(), sake);
+    expect(fromEmpty).toEqual(sake); // 空の所へ入れると、設定も含めて前の版のまま
+    const both = mergeData(fromEmpty, tabako);
+    expect(both.habits.map((h) => h.id)).toEqual([a.id, b.id]);
+    expect(both.habits[0]).toEqual(sake.habits[0]);
+    expect(both.habits[1]).toEqual(tabako.habits[0]);
+    expect(both.settings.notifyTime).toBe('08:30'); // 今の設定を残す
+    expect(both.activeId).toBe(a.id);
+    expect(computeStats(both.habits[0], T0 + 10 * DAY)).toEqual(computeStats(sake.habits[0], T0 + 10 * DAY));
+  });
+
+  it('同じ控えを2回足しても、同じ習慣が2つにならない', () => {
+    const a = habit();
+    const d = addHabit(emptyData(), a);
+    const back = importBackup(exportBackup(d, 'sake'));
+    expect(mergeData(d, back).habits).toHaveLength(1);
+  });
+
+  it('前の版(sake / tabako)が書き出した控えも読み込める', () => {
+    const b = newHabit({ kind: 'smoke', name: 'たばこ', startAt: iso(T0), yenPerDay: 600, packYen: 600, perDay: 20, perPack: 20 });
+    const old = addHabit(emptyData(), b);
+    // 前の版の控えの形(app に flavor の名前が入る)
+    const text = JSON.stringify({ mark: 'yamebiyori-backup', app: 'tabako', exportedAt: iso(T0), data: old });
+    const got = importBackup(text);
+    expect(got).toEqual(old);
+    const merged = mergeData(addHabit(emptyData(), habit()), got);
+    expect(merged.habits.map((h) => h.kind)).toEqual(['alcohol', 'smoke']);
   });
 });
 
