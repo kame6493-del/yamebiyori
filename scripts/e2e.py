@@ -195,6 +195,17 @@ with sync_playwright() as p:
     check("10日" in page.inner_text(".stats"), "ホームの通算も10日のまま")
     shot(page, "05_home_after_slip")
 
+    # 4b. 同じ日にもう一度 → 前の量とメモが入っていて、1件のまま書き直す(テスターの声 2026-10-08)
+    page.click(".slip-btn")
+    page.wait_for_selector(".gentle")
+    check(page.input_value("input[aria-label='量']") == "2" and page.input_value("textarea") == "送別会", "同じ日は前の量とメモが入っている")
+    check("書き直します" in page.inner_text(".page"), "同じ日の記録があると伝える")
+    shot(page, "04b_slip_again")
+    page.fill("input[aria-label='量']", "3")
+    page.click("text=書き直して、また今日から")
+    page.wait_for_selector(".toast")
+    check("書き直しました" in page.inner_text(".toast"), "書き直したと出る")
+
     # 5. 記録
     page.click(".tab:has-text('記録')")
     page.wait_for_selector(".cal-grid")

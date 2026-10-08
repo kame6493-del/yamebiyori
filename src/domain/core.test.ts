@@ -340,3 +340,26 @@ describe('保存データ', () => {
     expect(() => importBackup(exportBackup(emptyData(), 'sake'))).toThrow('入っていません');
   });
 });
+
+describe('同じ日の記録は上書き(テスターの声 2026-10-08)', () => {
+  it('同じ日にもう一度記録すると、1件のまま量とメモが書き直される', () => {
+    const h = habit(1000);
+    let d = addHabit(emptyData(), h);
+    d = addSlip(d, h.id, { at: iso(T0 + 5 * DAY + 1 * HOUR), amount: 2, note: '送別会' });
+    const firstId = d.habits[0].slips[0].id;
+    d = addSlip(d, h.id, { at: iso(T0 + 5 * DAY + 2 * HOUR), amount: 4 });
+    expect(d.habits[0].slips).toHaveLength(1);
+    expect(d.habits[0].slips[0].id).toBe(firstId);
+    expect(d.habits[0].slips[0].amount).toBe(4);
+    expect(d.habits[0].slips[0].note).toBeUndefined();
+    expect(computeStats(d.habits[0], T0 + 10 * DAY).slipDays).toBe(1);
+  });
+
+  it('別の日なら2件になる', () => {
+    const h = habit(1000);
+    let d = addHabit(emptyData(), h);
+    d = addSlip(d, h.id, { at: iso(T0 + 5 * DAY + 1 * HOUR) });
+    d = addSlip(d, h.id, { at: iso(T0 + 6 * DAY + 1 * HOUR) });
+    expect(d.habits[0].slips).toHaveLength(2);
+  });
+});

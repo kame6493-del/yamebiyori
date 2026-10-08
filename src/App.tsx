@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { activeHabit, addCoping, addCraving, addHabit, addHabits, addSlip, canAddFree, canAddHabit, emptyData, exportBackup, importBackup, mergeData, newHabit, removeCraving, removeHabit, removeSlip, updateHabit, visibleHabits } from './domain/data';
+import { activeHabit, addCoping, addCraving, addHabit, addHabits, addSlip, slipOnDay, canAddFree, canAddHabit, emptyData, exportBackup, importBackup, mergeData, newHabit, removeCraving, removeHabit, removeSlip, updateHabit, visibleHabits } from './domain/data';
 import { FLAVOR, wordsFor } from './domain/flavor';
 import { planMilestoneNotices } from './domain/milestones';
 import { computeStats } from './domain/stats';
@@ -113,11 +113,12 @@ export default function App() {
     );
   } else if (overlay?.t === 'slip') {
     page = <SlipPage habit={h} now={now} onClose={close} onSave={(s) => {
+      const again = !!slipOnDay(h, s.at);
       const next = addSlip(data, h.id, s);
       commit(next);
       setNow(Date.now());
       close();
-      say(`記録しました。通算${computeStats(next.habits.find((x) => x.id === h.id)!, Date.now()).totalDays}日はそのままです。`);
+      say(`${again ? 'この日の記録を書き直しました' : '記録しました'}。通算${computeStats(next.habits.find((x) => x.id === h.id)!, Date.now()).totalDays}日はそのままです。`);
     }} />;
   } else if (overlay?.t === 'paywall') {
     page = <Paywall billing={billing} onClose={close} onBought={() => { setBilling((b) => (b.status === 'ready' ? { ...b, premium: true } : b)); close(); say('完全版をひらきました。ありがとうございます。'); }} />;

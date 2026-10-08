@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { wordsFor } from '../domain/flavor';
 import { ALCOHOL_TIPS } from '../domain/health';
+import { slipOnDay } from '../domain/data';
 import { computeStats } from '../domain/stats';
 import type { Habit } from '../domain/types';
 import { Cite, fromLocalInput, toLocalInput, TopBar } from './common';
@@ -10,8 +11,11 @@ export function SlipPage(p: { habit: Habit; now: number; onSave: (s: { at: strin
   const w = wordsFor(h.kind, h.name);
   const s = computeStats(h, p.now);
   const [at, setAt] = useState(toLocalInput(new Date(p.now).toISOString()));
-  const [amount, setAmount] = useState('');
-  const [note, setNote] = useState('');
+  const today = slipOnDay(h, new Date(p.now).toISOString());
+  const [amount, setAmount] = useState(today?.amount ? String(today.amount) : '');
+  const [note, setNote] = useState(today?.note ?? '');
+  const iso0 = fromLocalInput(at);
+  const same = iso0 ? slipOnDay(h, iso0) : undefined;
   const [err, setErr] = useState('');
 
   const save = () => {
@@ -34,6 +38,7 @@ export function SlipPage(p: { habit: Habit; now: number; onSave: (s: { at: strin
         <legend>いつ</legend>
         <input className="input" type="datetime-local" aria-label="日時" value={at} max={toLocalInput(new Date(p.now).toISOString())} onChange={(e) => setAt(e.target.value)} />
       </fieldset>
+      {same && <p className="caution-note small slip-same">この日の記録はもうあります。保存すると、1件のまま書き直します。</p>}
       <fieldset className="field">
         <legend>量(書かなくてもかまいません)</legend>
         <span className="unit-in"><input className="input" inputMode="numeric" aria-label="量" value={amount} onChange={(e) => setAmount(e.target.value.replace(/\D/g, ''))} />{w.unit}</span>
@@ -54,7 +59,7 @@ export function SlipPage(p: { habit: Habit; now: number; onSave: (s: { at: strin
 
       {err && <p className="err" role="alert">{err}</p>}
       <div className="bottom-bar">
-        <button className="btn primary wide big" onClick={save}>記録して、また今日から</button>
+        <button className="btn primary wide big" onClick={save}>{same ? '書き直して、また今日から' : '記録して、また今日から'}</button>
       </div>
     </div>
   );

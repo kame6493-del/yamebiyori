@@ -103,9 +103,25 @@ export function removeHabit(d: AppData, id: string): AppData {
   return { ...d, habits, activeId: d.activeId === id ? habits[0]?.id ?? null : d.activeId };
 }
 
+/** 端末の時刻での日付(YYYY-MM-DD) */
+function localDay(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/** その日の記録があれば返す(同じ日は1件にまとめる) */
+export function slipOnDay(h: Habit, at: string): Slip | undefined {
+  const k = localDay(at);
+  return h.slips.find((s) => localDay(s.at) === k);
+}
+
+/** 同じ日の記録がすでにあれば、新しく足さずに上書きする(テスターの声: 2026-10-08) */
 export function addSlip(d: AppData, id: string, s: { at: string; amount?: number; note?: string }): AppData {
-  const slip: Slip = { id: uid(), at: s.at, ...(s.amount ? { amount: s.amount } : {}), ...(s.note ? { note: s.note } : {}) };
-  return updateHabit(d, id, (h) => ({ ...h, slips: [...h.slips, slip] }));
+  return updateHabit(d, id, (h) => {
+    const same = slipOnDay(h, s.at);
+    const slip: Slip = { id: same?.id ?? uid(), at: s.at, ...(s.amount ? { amount: s.amount } : {}), ...(s.note ? { note: s.note } : {}) };
+    return { ...h, slips: same ? h.slips.map((x) => (x.id === same.id ? slip : x)) : [...h.slips, slip] };
+  });
 }
 
 export function removeSlip(d: AppData, id: string, slipId: string): AppData {
