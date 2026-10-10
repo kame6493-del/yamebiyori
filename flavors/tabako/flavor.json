@@ -14,7 +14,9 @@
   "productId": "yamebiyori_tabako_full",
   "entitlement": "full",
   "revenuecat": { "ios": "appl_QNlpdRCOqZelWRlBWEofhDAGJHy", "android": "goog_IwhpobKZyIuACPftgtmvyNlrRnI" },
-  "theme": "sora",
-  "paper": "#f3f6f7",
-  "accent": "#2d5d8a"
+  "androidVersionName": "1.2.0",
+  "androidVersionCode": 3,
+  "theme": "wakaba",
+  "paper": "#fbf7ec",
+  "accent": "#5a9447"
 }

@@ -42,13 +42,13 @@ with sync_playwright() as p:
     page.click(".unlock")
     page.wait_for_selector(".paywall")
     check("¥600" in page.inner_text(".pw-cta"), "開発用の値段 ¥600 が出る")
-    page.click(".pw-cta .btn.primary")
+    page.click(".pw-cta .btn.coral")
     page.wait_for_selector(".hero")
     check(page.locator(".unlock").count() == 0, "買ったら案内が消える")
 
     # グラフ
     page.click(".tab:has-text('記録')")
-    page.wait_for_selector(".cal-grid")
+    page.wait_for_selector(".ms")
     check(page.locator(".chart").count() == 3, "グラフ3つ(時間帯・曜日・お金)")
     check(page.locator(".bar-mark").count() > 3, "棒が描かれている")
     page.locator(".chart").first.locator("g").nth(8).click()
@@ -75,11 +75,11 @@ with sync_playwright() as p:
 
     # 色
     page.click(".tab:has-text('設定')")
-    page.click(".theme:has-text('よる')")
+    page.click(".theme:has-text('墨色')")
     bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check(bg == "rgb(21, 25, 31)", f"色を「よる」に変えられる {bg}")
+    check(bg == "rgb(30, 34, 40)", f"色を「墨色」に変えられる {bg}")
     shot(page, "04_theme_yoru")
-    page.click(".theme:nth-child(1)")
+    page.click(".theme:has-text('若葉')")
 
     # 複数の習慣
     page.click("text=やめたいことを足す")
@@ -87,16 +87,18 @@ with sync_playwright() as p:
     page.click(".seg button:has-text('そのほか')")
     page.fill("input[placeholder^='例: 甘い']", "甘いジュース")
     page.fill("input[aria-label='使っていたお金']", "1050")
-    page.click("text=はじめる")
-    sel = ".pair-card" if BOTH else ".switch button"
+    page.click(".save-habit")
+    sel = ".pair-card"
     page.wait_for_selector(sel)
     want = 3 if BOTH else 2
     check(page.locator(sel).count() == want, f"足すとホームに{want}つ並ぶ")
     check("甘いジュースをやめて" in page.inner_text(".hero-label"), "足した物がホームに出る")
     page.click(".crave-btn")
+    page.click(".next-btn")
     page.wait_for_selector(".timer")
     check(page.locator(".quote").count() == 0, "出典の無い習慣には体の情報を出さない")
-    page.click("text=乗り切れた")
+    page.click(".to-save")
+    page.click(".save-btn")
     page.wait_for_selector(".hero")
     page.locator(sel).first.click()
     check(FIRST in page.inner_text(".hero-label"), "元の習慣に戻れる")

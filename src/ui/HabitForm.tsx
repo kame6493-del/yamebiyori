@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { BASE_KINDS, wordsFor } from '../domain/flavor';
 import { CAUTION } from '../domain/health';
 import { yenPerDayFromPack } from '../domain/stats';
+import { thingIcon } from './art';
 import type { Habit, HabitKind } from '../domain/types';
-import { fromLocalInput, QuoteCard, toLocalInput, TopBar } from './common';
+import { Banner, fromLocalInput, QuoteCard, toLocalInput, TopBar } from './common';
 
 export interface HabitFields {
   kind: HabitKind; name: string; startAt: string; yenPerDay: number; packYen?: number; perDay?: number; perPack?: number; reason: string;
@@ -15,8 +16,6 @@ export function HabitForm(p: {
   now: number;
   /** はじめの画面: 何をやめるかは前の画面で決めてある */
   kind?: HabitKind;
-  /** はじめの画面で、アプリの紹介を上に出す(選ぶ画面が無いとき) */
-  intro?: boolean;
   /** はじめの画面で、いくつ目か(例: 1/2) */
   step?: string;
   saveLabel?: string;
@@ -69,21 +68,15 @@ export function HabitForm(p: {
 
   return (
     <div className="page form">
-      {p.mode === 'first' && p.intro ? (
-        <section className="welcome">
-          <p className="brand-name big">やめ日和</p>
-          <p className="welcome-lead">{w.thing}をやめた日を、数えていきます。<br />もし{w.verbUse}日があっても、それまでの日は消えません。</p>
-        </section>
-      ) : (
-        <TopBar title={title} onClose={p.onCancel} />
-      )}
+      <TopBar title={title} onClose={p.onCancel} />
+      {p.mode === 'first' && <Banner name="sprout_soil" msg={null} className="form-banner" />}
 
       {p.mode === 'add' && (
         <fieldset className="field">
           <legend>何をやめますか</legend>
           <div className="seg">
             {(['alcohol', 'smoke', 'custom'] as HabitKind[]).map((k) => (
-              <button key={k} className={kind === k ? 'on' : ''} onClick={() => setKind(k)}>{k === 'alcohol' ? 'お酒' : k === 'smoke' ? 'たばこ' : 'そのほか'}</button>
+              <button key={k} className={kind === k ? 'on' : ''} onClick={() => setKind(k)}><img src={thingIcon(k)} alt="" />{k === 'alcohol' ? 'お酒' : k === 'smoke' ? 'たばこ' : 'そのほか'}</button>
             ))}
           </div>
           {kind === 'custom' && !locked && <input className="input" placeholder="例: 甘いジュース、夜ふかし" value={name} maxLength={20} onChange={(e) => setName(e.target.value)} />}
@@ -138,7 +131,7 @@ export function HabitForm(p: {
 
       {err && <p className="err" role="alert">{err}</p>}
       <div className="form-actions">
-        <button className="btn primary wide big" onClick={save}>{locked ? '完全版について' : p.saveLabel ?? (p.mode === 'edit' ? '保存する' : 'はじめる')}</button>
+        <button className="btn coral wide big save-habit" onClick={save}>{locked ? '完全版について' : p.saveLabel ?? (p.mode === 'edit' ? '保存する' : 'はじめる')}</button>
         {p.onDelete && <button className="btn danger wide" onClick={p.onDelete}>この記録を消す</button>}
       </div>
     </div>

@@ -70,38 +70,62 @@ patch(gradle, [
 ])
 
 icon = Image.open(ICON).convert("RGB")
+# 2026-10 の作り直し: 持ち主の絵(朝日と双葉・禁煙と禁酒の印)。適応アイコンは前景にこの絵を縮めて置き、
+# 縁をぼかして単色の背景(朝の空の生成り)になじませる。直径 66dp の安全域に双葉と2つの印が入る大きさ(FG_K)
+from PIL import ImageDraw, ImageFilter
+ICON_BG = "#F5EBD0"
+FG_K = 0.63
+inner = icon.crop((40, 40, 984, 984)).resize((1024, 1024), Image.LANCZOS)
+
+
+def soft(size, k):
+    n = int(size * k)
+    im = inner.resize((n, n), Image.LANCZOS).convert("RGBA")
+    mask = Image.new("L", (n, n), 0)
+    pad = int(n * 0.03)
+    ImageDraw.Draw(mask).rounded_rectangle((pad, pad, n - 1 - pad, n - 1 - pad), int(n * 0.28), fill=255)
+    im.putalpha(mask.filter(ImageFilter.GaussianBlur(n * 0.045)))
+    c = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    c.paste(im, ((size - n) // 2, (size - n) // 2), im)
+    return c
+
+
+def on_bg(size, k, bg=ICON_BG):
+    c = Image.new("RGB", (size, size), bg)
+    f = soft(size, k)
+    c.paste(f, (0, 0), f)
+    return c
+
+
 res = A / "app/src/main/res"
 for d, px in {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}.items():
     folder = res / f"mipmap-{d}"
     folder.mkdir(exist_ok=True)
     icon.resize((px, px), Image.LANCZOS).save(folder / "ic_launcher.png")
-    # 丸いアイコン: 丸く切り抜く
-    r = icon.resize((px, px), Image.LANCZOS).convert("RGBA")
-    m = Image.new("L", (px, px), 0)
-    from PIL import ImageDraw
-    ImageDraw.Draw(m).ellipse([0, 0, px - 1, px - 1], fill=255)
-    r.putalpha(m)
-    r.save(folder / "ic_launcher_round.png")
-    # 形の変わるアイコンの前景: 108dp のうち中央 66dp に収める
-    fg_px = int(px * 108 / 48)
-    fg = Image.new("RGBA", (fg_px, fg_px), (0, 0, 0, 0))
-    inner = int(fg_px * 66 / 108)
-    fg.paste(icon.resize((inner, inner), Image.LANCZOS), ((fg_px - inner) // 2, (fg_px - inner) // 2))
-    fg.save(folder / "ic_launcher_foreground.png")
+    # 丸いアイコン(古い端末): 背景の丸に、丸に収まる大きさで
+    big = on_bg(px * 4, 0.74).convert("RGBA")
+    m = Image.new("L", (px * 4, px * 4), 0)
+    ImageDraw.Draw(m).ellipse([0, 0, px * 4 - 1, px * 4 - 1], fill=255)
+    big.putalpha(m)
+    big.resize((px, px), Image.LANCZOS).save(folder / "ic_launcher_round.png")
+    fg_px = round(px * 108 / 48)
+    soft(fg_px, FG_K).save(folder / "ic_launcher_foreground.png")
 bgxml = res / "values/ic_launcher_background.xml"
-bgxml.write_text(f'<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">{PAPER}</color>\n</resources>\n', encoding="utf-8", newline="\n")
+BG_XML = '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">' + ICON_BG + '</color>\n</resources>\n'
+bgxml.write_text(BG_XML, encoding="utf-8", newline="\n")
 
 
 def splash(w, h):
     im = Image.new("RGB", (w, h), PAPER)
-    sz = int(min(w, h) * 0.32)
-    im.paste(icon.resize((sz, sz), Image.LANCZOS), ((w - sz) // 2, (h - sz) // 2))
+    sz = int(min(w, h) * 0.34)
+    f = soft(sz, 1.0)
+    im.paste(f, ((w - sz) // 2, (h - sz) // 2), f)
     return im
 
 
 for p in res.glob("drawable*/splash.png"):
     w, h = Image.open(p).size
-    splash(w, h).save(p)
+    splash(w, h).quantize(colors=200, method=Image.Quantize.MEDIANCUT).convert("RGB").save(p, optimize=True)
 
 # ---------- iOS ----------
 I = ROOT / "ios/App"

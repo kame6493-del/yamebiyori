@@ -27,7 +27,7 @@ export function defaultCopings(kind: HabitKind): string[] {
 
 /** 場面の候補 */
 export function defaultScenes(kind: HabitKind): string[] {
-  if (kind === 'alcohol') return ['夕食', '仕事のあと', '寝る前', '休みの日', '人との集まり', 'いらいらした時', 'さみしい時'];
+  if (kind === 'alcohol') return ['仕事終わり', '夕食', 'ひとり', '飲み会', 'ストレス', '眠れない', '休みの日'];
   if (kind === 'smoke') return ['朝起きてすぐ', '食事の後', 'コーヒーと一緒に', '仕事の休憩時間', 'お酒の席', 'いらいらした時', '車の中'];
   return ['朝', '昼', '夜', 'いらいらした時', 'ひまな時'];
 }

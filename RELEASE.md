@@ -1,5 +1,18 @@
 # やめ日和 RELEASE
 
+## 2026-10-10 見た目の作り直し(持ち主の UI 見本7枚・新しいアイコン)1.2.0
+
+- 見本: Downloads\yame_ref_2〜8_1122x1402.png(ChatGPT で作った UI 参考画像)、アイコン store/icon_source_1024.png(元 Downloads\yame_ref_1_1254x1254.png を正方形にした物。両方の版で同じ絵)。
+- 絵は見本から切り出してそのまま使う: scripts/crop_ref.py → src/assets/ref/*.webp(77枚。文字の載った所は inpaint で消し、文字はアプリが重ねる)。見本に無い物で描いたのは下のタブの線の絵(SVG)と、待ち受け画像の上の空(色をのばしただけ)。
+- 画面: ホーム(お酒/たばこの切り替え・絵の帯・「やめて N日」・今回/通算/最長/浮いたお金・「気持ちが来た」)/ 気持ちが来た 4段(気持ちを記録→5分タイマー→効いた方法→振り返って保存。ひとことメモは前からある Craving.note を使う)/ 記録する(反映のされ方の表)/ 記録(記念日・効いた順・グラフ・記録履歴)/ カレンダー(新しいタブ。双葉・炎・グラスの印、日別の記録)/ 読みもの(旧「体のこと」。出典の原文はそのまま)/ 設定(テーマの絵つき)/ 完全版 / 記念日の画像・待ち受け画像(見本の絵の上に描く)。
+- 色: 若葉(無料)・空色・こはく・さくら・墨色(完全版)。保存の id は前のまま(base/sora 新/yuuhi=こはく/sakura/yoru=墨色)、前の「もり」は若葉に寄せる。たばこの版の地の色(そら)も若葉になった。
+- 機能・課金は変えていない(商品ID yamebiyori_sake_full / yamebiyori_tabako_full、entitlement full、中身・値段そのまま)。見本にあって今無い物(ホーム画面・ロック画面のウィジェット、呼吸のガイド、みんなのおすすめ、記念日ごとのオンオフ、朝のリマインダー、ログイン、テンプレートの選択)は作っていない。
+- 版: Play に出ている2本とも上げた。両方の版 jp.yamebiyori.sake 1.2.0(versionCode 5)releases/yamebiyori-both-1.2.0-vc5.aab(7.9MB)、たばこの版 jp.yamebiyori.tabako 1.2.0(versionCode 3)releases/yamebiyori-tabako-1.2.0-vc3.aab(7.9MB)。鍵は前のまま、証明書 SHA-256 は sake d0:b0:bf:72…c2:6a / tabako 20:f6:00:38…00:2e で前の版と同じ。
+- アイコン: Android 適応アイコンは前景にこの絵(108dp の 63%・縁をぼかす)、背景 #F5EBD0。docs/icon_adaptive_check.png で 66dp の円に双葉と2つの印が入るのを確かめた。iOS AppIcon・ストアは不透明の 1024。元のアイコン・ストア素材は store/_old_2026-10-10/ に退避。
+- 確かめたこと: vitest 33件 / 製品ビルド / scripts/e2e.py(375・430 幅 × 両方の版・たばこの版)NG 0 / e2e_premium.py NG 0 / scripts/e2e_screens.py(全20画面 × 375・430 × 2版、はみ出し・絵の読み込み・英語の取り残し・エラー)NG 0 / check_store.py NG 0 / 審査用ツアー(check_review_tour.py)が購入画面まで 108秒。
+- 比較: docs/compare_redesign_01〜19_*.png と docs/compare_redesign_all.png(scripts/make_compare.py)。
+- iOS は出し直さない(持ち主の決定)。iOS の殻のアイコンも同じ絵に替えた(コードは共通で、審査用ツアーも新しい画面に合わせた)。
+
 ## 2026-10-06 お酒とたばこを1本にまとめた(flavor both)
 
 - いきさつ: App Store がお酒(ASC 6819018441)とたばこ(ASC 6819018643)の2本を Guideline 4.3(a) Spam で却下(同じ作りの2本)。持ち主の判断で1本にまとめた。下の「2本に分ける」は当時の判断の記録。

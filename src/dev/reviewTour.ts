@@ -91,7 +91,7 @@ async function firstForm(smoke: boolean, daysAgo: number, reason: string, button
     await fill('input[aria-label="使っていたお金"]', '3500', true);
   }
   await fill('textarea', reason, true);
-  await tap('button.primary', text(button), 3500);
+  await tap('.save-habit', text(button), 3500);
 }
 
 export async function runReviewTour() {
@@ -102,6 +102,7 @@ export async function runReviewTour() {
     await firstForm(false, 10, '朝すっきり起きたい', 'つぎへ');
     await firstForm(true, 4, '服のにおいを気にしたくない', 'はじめる');
   } else {
+    await tap('.start-btn', undefined, 2000);
     await firstForm(SMOKE, 10, '朝すっきり起きたい', 'はじめる');
   }
 
@@ -112,33 +113,37 @@ export async function runReviewTour() {
     await tap('.pair-card', text('お酒'), 2000);
   }
 
-  // 飲みたくなった / 吸いたくなった → 5分タイマー → 乗り切れた
+  // 気持ちが来た → 強さと場面 → 5分タイマー → 効いた方法 → 振り返って保存(乗り切れた)
   if (await tap('.crave-btn', undefined, 3000)) {
-    await tap('.chip-btn', undefined, 900);
     await tap('.strength button', text('4'), 900);
-    const scenes = [...document.querySelectorAll<HTMLElement>('.chip-btn')];
-    if (scenes.length > 1) await tap('.chip-btn', (b) => b === scenes[scenes.length - 1], 900);
-    await sleep(1500);
-    await tap('button.primary', text('乗り切れた'), 3000);
+    await tap('.chip-btn.scene', undefined, 900);
+    await tap('.next-btn', undefined, 2500);
+    await tap('.chip-btn.try', undefined, 3000);
+    await tap('button', text('効いた方法を見る'), 2500);
+    await tap('.methods button', undefined, 1200);
+    await tap('button', text('これで乗り切れた'), 2500);
+    await tap('.save-btn', undefined, 3000);
   }
 
   // 記録(カレンダー・乗り切り方・記念日)
   await tap('.tab', text('記録'), 2000);
   await scrollSlow(document.body.scrollHeight, 3000); await sleep(1500);
-  // 体のこと(出典つき)
-  await tap('.tab', (b) => b.innerText.includes('体'), 2000);
+  // カレンダー
+  await tap('.tab', text('カレンダー'), 2500);
+  // 読みもの(出典つき)
+  await tap('.tab', text('読みもの'), 2000);
   await scrollSlow(document.body.scrollHeight * 0.6, 2500); await sleep(1500);
 
   // 記録のグラフ(完全版)→ 購入画面。無ければホームの案内から
   await tap('.tab', text('記録'), 1500);
   if (!(await tap('.locked button', undefined, 3000))) {
-    await tap('.tab', text('きょう'), 1500);
+    await tap('.tab', text('ホーム'), 1500);
     await tap('.unlock', undefined, 3000);
   }
   await sleep(1500);
   await scrollSlow(document.body.scrollHeight, 2500);
   await sleep(2500);
   // 購入ボタン(シミュレーターでストアの商品が取れたときだけ押せる)
-  await tap('.pw-cta button.primary', text('買う'), 10000, 10000);
+  await tap('.pw-cta button.coral', text('買う'), 10000, 10000);
   await sleep(6000);
 }

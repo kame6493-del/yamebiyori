@@ -37,11 +37,12 @@ export const FLAVOR = raw as Flavor;
 export const BASE_KINDS: ('alcohol' | 'smoke')[] = FLAVOR.kind === 'both' ? ['alcohol', 'smoke'] : [FLAVOR.kind];
 
 /** 習慣の種類ごとの言葉 */
-export interface Words { thing: string; verbUse: string; verbCrave: string; craveNoun: string; stopNoun: string; unit: string }
+/** te: 「飲んで」しまった の形 */
+export interface Words { thing: string; verbUse: string; verbCrave: string; craveNoun: string; stopNoun: string; unit: string; te: string }
 
 export function wordsFor(kind: HabitKind, name: string): Words {
-  if (kind === 'alcohol') return { thing: 'お酒', verbUse: '飲んだ', verbCrave: '飲みたくなった', craveNoun: '飲みたい気持ち', stopNoun: '禁酒', unit: '杯' };
-  if (kind === 'smoke') return { thing: 'たばこ', verbUse: '吸った', verbCrave: '吸いたくなった', craveNoun: '吸いたい気持ち', stopNoun: '禁煙', unit: '本' };
+  if (kind === 'alcohol') return { thing: 'お酒', verbUse: '飲んだ', verbCrave: '飲みたくなった', craveNoun: '飲みたい気持ち', stopNoun: '禁酒', unit: '杯', te: '飲んで' };
+  if (kind === 'smoke') return { thing: 'たばこ', verbUse: '吸った', verbCrave: '吸いたくなった', craveNoun: '吸いたい気持ち', stopNoun: '禁煙', unit: '本', te: '吸って' };
   const t = name.trim() || 'やめたいこと';
-  return { thing: t, verbUse: 'やってしまった', verbCrave: 'したくなった', craveNoun: 'したい気持ち', stopNoun: `${t}断ち`, unit: '回' };
+  return { thing: t, verbUse: 'やってしまった', verbCrave: 'したくなった', craveNoun: 'したい気持ち', stopNoun: `${t}断ち`, unit: '回', te: 'やって' };
 }

@@ -9,6 +9,7 @@ import { loadBilling, restore, type BillingState } from './platform/billing';
 import { buzz, scheduleMilestones, shareText } from './platform/native';
 import { clearData, loadData, saveData } from './platform/storage';
 import { BodyPage } from './ui/BodyPage';
+import { CalendarPage, DayPage } from './ui/CalendarPage';
 import { TabBar, type Tab } from './ui/common';
 import { Craving } from './ui/Craving';
 import { HabitForm, type HabitFields } from './ui/HabitForm';
@@ -22,7 +23,7 @@ import { SlipPage } from './ui/Slip';
 
 type Overlay =
   | { t: 'craving' } | { t: 'slip' } | { t: 'paywall' } | { t: 'add' } | { t: 'edit'; id: string }
-  | { t: 'card'; days: number } | { t: 'wall' } | null;
+  | { t: 'card'; days: number } | { t: 'wall' } | { t: 'day'; y: number; m: number; d: number } | null;
 
 export default function App() {
   const [data, setData] = useState<AppData | null>(null);
@@ -101,14 +102,15 @@ export default function App() {
   let page: React.ReactNode = null;
   if (overlay?.t === 'craving') {
     page = (
-      <Craving habit={h} onClose={close} onAddCoping={(t) => commit(addCoping(data, h.id, t))}
-        onDone={(c) => {
+      <Craving habit={h} habits={habits} onClose={close} onAddCoping={(id, t) => commit(addCoping(data, id, t))}
+        onDone={(id, c) => {
           const at = new Date().toISOString();
-          commit(addCraving(data, h.id, { ...c, at }));
+          const next = addCraving(data, id, { ...c, at });
+          commit({ ...next, activeId: id });
           buzz();
           setNow(Date.now());
           close();
-          say(c.outcome === 'passed' ? '乗り切れました。記録しました。' : `記録しました。通算${computeStats(h, Date.now()).totalDays}日はそのままです。`);
+          say(c.outcome === 'passed' ? '乗り切れました。記録しました。' : `記録しました。通算${computeStats(next.habits.find((x) => x.id === id)!, Date.now()).totalDays}日はそのままです。`);
         }} />
     );
   } else if (overlay?.t === 'slip') {
@@ -137,6 +139,8 @@ export default function App() {
           onDelete={() => { if (confirm(`${wordsFor(target.kind, target.name).thing}の記録をすべて消します。よろしいですか`)) { commit(removeHabit(data, target.id)); close(); } }} />
       );
     }
+  } else if (overlay?.t === 'day') {
+    page = <DayPage habit={h} now={now} y={overlay.y} m={overlay.m} d={overlay.d} onClose={close} />;
   } else if (overlay?.t === 'card' || overlay?.t === 'wall') {
     page = premium
       ? <ShareImage habit={h} now={now} theme={theme} kind={overlay.t} days={overlay.t === 'card' ? overlay.days : undefined} onClose={close} />
@@ -148,7 +152,7 @@ export default function App() {
   return (
     <div className="app">
       {tab === 'home' && (
-        <Home habit={h} habits={habits} now={now} premium={premium}
+        <Home habit={h} habits={habits} now={now} premium={premium} theme={theme}
           onSwitch={(id) => commit({ ...data, activeId: id })}
           onCrave={() => setOverlay({ t: 'craving' })} onSlip={() => setOverlay({ t: 'slip' })} onUnlock={unlock}
           onCard={(days) => setOverlay(premium ? { t: 'card', days } : { t: 'paywall' })} onBody={() => setTab('body')} />
@@ -159,6 +163,7 @@ export default function App() {
           onCard={(days) => setOverlay({ t: 'card', days })} onWallpaper={() => setOverlay({ t: 'wall' })}
           onRemoveSlip={(id) => commit(removeSlip(data, h.id, id))} onRemoveCraving={(id) => commit(removeCraving(data, h.id, id))} />
       )}
+      {tab === 'cal' && <CalendarPage habit={h} habits={habits} now={now} onSwitch={(id) => commit({ ...data, activeId: id })} onDay={(y, m, d) => setOverlay({ t: 'day', y, m, d })} />}
       {tab === 'body' && <BodyPage habit={h} habits={habits} now={now} onSwitch={(id) => commit({ ...data, activeId: id })} />}
       {tab === 'settings' && (
         <SettingsPage data={data} habits={habits} premium={premium} canAddFree={canAddFree(data)} notifyMsg={notifyMsg}
@@ -188,7 +193,7 @@ export default function App() {
           }}
           onClearAll={async () => { await clearData(); setData(emptyData()); setTab('home'); }} />
       )}
-      <TabBar tab={tab} onTab={setTab} bodyLabel="体のこと" />
+      <TabBar tab={tab} onTab={setTab} />
       {toast && <div className="toast" role="status">{toast}</div>}
     </div>
   );

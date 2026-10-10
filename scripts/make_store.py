@@ -1,17 +1,16 @@
-"""ストア素材を作る。python scripts/make_store.py http://localhost:5377/  (今の flavor の分)
-1) 見本データ(?demo=1)で画面を撮る(430x932 ×3 = 1290x2796)
-2) 見出しを付けて iPhone 用 1290x2796 と Play 用 1080x1920 にする
-3) アイコン 1024 / Play 512 / フィーチャー 1024x500
-出力: store/<flavor>/ と store/<flavor>/play/
-both(お酒とたばこを1本にした版)は、両方を記録した見本で撮り、はじめに選ぶ画面も1枚足す。"""
+"""ストア素材を作る(2026-10 の作り直しの見た目)。python scripts/make_store.py http://localhost:5291/  (今の flavor の分。開発サーバーで見本データ ?demo=1 を使う)
+1) 見本データで画面を撮る(430x932 ×3 = 1290x2796)
+2) 見出しを付けて iPhone 用 1290x2796 と Play 用 1080x1920 にする(値段・「無料」は写さない)
+3) アイコン 1024 / Play 512(持ち主の絵 store/icon_source_1024.png の縁を除いた物)/ フィーチャー 1024x500
+出力: store/<flavor>/ と store/<flavor>/play/"""
 import json
 import os
 import sys
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from playwright.sync_api import sync_playwright
 
 sys.stdout.reconfigure(encoding="utf-8")
-URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:5377/"
+URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:5291/"
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 FL = json.load(open(os.path.join(ROOT, "src", "flavor.current.json"), encoding="utf-8"))
@@ -19,43 +18,40 @@ KEY = FL["key"]
 STORE = os.path.join(ROOT, "store", KEY)
 RAW = os.path.join(STORE, "raw")
 PLAY = os.path.join(STORE, "play")
+REF = os.path.join(ROOT, "src", "assets", "ref")
 for d in (STORE, RAW, PLAY, os.path.join(STORE, "ios"), os.path.join(PLAY, "screenshots")):
     os.makedirs(d, exist_ok=True)
 
 GOTHIC = "C:/Windows/Fonts/YuGothB.ttc"
 GOTHIC_M = "C:/Windows/Fonts/YuGothM.ttc"
-MINCHO = "C:/Windows/Fonts/yumindb.ttf"
-
-
-def hexrgb(h):
-    h = h.lstrip("#")
-    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
-
-
-PAPER = hexrgb(FL["paper"])
-ACCENT = hexrgb(FL["accent"])
+PAPER = (251, 247, 236)
+SAGE = (232, 241, 231)
+SUN = (250, 228, 170)
+GREEN = (90, 148, 71)
+CORAL = (220, 116, 87)
+INK = (58, 58, 51)
+INK2 = (95, 93, 84)
 SMOKE = KEY == "tabako"
 BOTH = KEY == "both"
-SOFT = (225, 235, 244) if SMOKE else (223, 238, 237)
-INK = (31, 42, 51) if SMOKE else (38, 38, 34)
-INK2 = (79, 93, 104) if SMOKE else (87, 87, 80)
-V = FL["verbCrave"]
 
-CAPTIONS = [
-    ("1_home", "やめた日と浮いたお金が\nひと目でわかる", "広告なし・登録なし"),
-    ("2_craving", f"{V}ら\n5分だけ別のことを", "乗り切れた方法が、たまっていく"),
-    ("3_slip", f"{FL['verbUse']}日も責めない\n通算の日数は消えない", "数え直すのは「今回」だけ"),
-    ("4_body", "体の変化の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
-    ("5_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
-]
 if BOTH:
     CAPTIONS = [
         ("1_home", "お酒もたばこも\nひとつのアプリで", "日数と浮いたお金を、別々に数える"),
-        ("2_craving", "吸いたくなったら\n5分だけ別のことを", "乗り切れた方法が、たまっていく"),
-        ("3_slip", "飲んだ日も責めない\n通算の日数は消えない", "数え直すのは「今回」だけ"),
-        ("4_body", "体の変化の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
-        ("5_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
-        ("6_start", "お酒・たばこ・両方\nはじめに選ぶだけ", "あとから足すこともできます"),
+        ("2_craving", "気持ちが来たら\n5分だけやり過ごす", "効いた方法が、たまっていく"),
+        ("3_slip", "飲んでしまった日も\n責めない", "通算の日数は消えない。数え直すのは今回だけ"),
+        ("4_calendar", "続いた日が\nカレンダーで見える", "日付を押すと、その日の記録"),
+        ("5_body", "体の変化の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
+        ("6_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
+        ("7_start", "お酒・たばこ・両方\nはじめに選ぶだけ", "広告なし・登録なし・記録は端末の中だけ"),
+    ]
+else:
+    CAPTIONS = [
+        ("1_home", "たばこをやめた日と\n浮いたお金が見える", "広告なし・登録なし"),
+        ("2_craving", "吸いたくなったら\n5分だけやり過ごす", "効いた方法が、たまっていく"),
+        ("3_slip", "吸ってしまった日も\n責めない", "通算の日数は消えない。数え直すのは今回だけ"),
+        ("4_calendar", "続いた日が\nカレンダーで見える", "日付を押すと、その日の記録"),
+        ("5_body", "禁煙の効果の目安を\n厚生労働省の原文で", "出典つき・言い換えなし"),
+        ("6_graphs", "来やすい時間がわかれば\n先回りできる", "グラフ・記念日の画像は完全版"),
     ]
 
 
@@ -67,53 +63,56 @@ def capture():
         pg.on("dialog", lambda d: d.accept())
         pg.goto(URL + "?demo=1&days=45&slips=1&crav=30&premium=1")
         pg.wait_for_selector(".hero")
-        pg.wait_for_timeout(400)
+        pg.wait_for_timeout(500)
         pg.screenshot(path=os.path.join(RAW, "1_home.png"))
 
         if BOTH:
             pg.click(".pair-card:has-text('たばこ')")
         pg.click(".crave-btn")
+        pg.wait_for_selector(".faces")
+        pg.click(".faces button:has-text('3')")
+        pg.click(".next-btn")
         pg.wait_for_selector(".timer")
-        pg.locator(".chip-btn").nth(1).click()
-        pg.click(".strength button:has-text('3')")
-        pg.evaluate("window.scrollTo(0, 0)")  # 押した所へ流れても、タイマーを写す
-        pg.wait_for_timeout(2600)  # タイマーが動いている所
+        pg.locator(".chip-btn.try").first.click()
+        pg.evaluate("window.scrollTo(0, 0)")
+        pg.wait_for_timeout(2600)
         pg.screenshot(path=os.path.join(RAW, "2_craving.png"))
         pg.click(".topbar .icon")
-
+        pg.click(".topbar .icon")
         if BOTH:
             pg.click(".pair-card:has-text('お酒')")
         pg.click(".slip-btn")
         pg.wait_for_selector(".gentle")
-        pg.fill("textarea", "送別会で断りにくかった")
+        pg.wait_for_timeout(300)
         pg.screenshot(path=os.path.join(RAW, "3_slip.png"))
         pg.click(".topbar .icon")
 
-        pg.click(".tab:has-text('体のこと')")
+        pg.click(".tab:has-text('カレンダー')")
+        pg.wait_for_selector(".cal-grid")
+        pg.wait_for_timeout(300)
+        pg.screenshot(path=os.path.join(RAW, "4_calendar.png"))
+
+        pg.click(".tab:has-text('読みもの')")
         pg.wait_for_selector(".body")
         if BOTH:
             pg.click(".switch button:has-text('たばこ')")
-        if SMOKE or BOTH:
-            pg.evaluate("() => { const e = document.querySelector('.tl'); window.scrollTo(0, e.closest('.card').getBoundingClientRect().top + window.scrollY - 70) }")
-        else:
-            pg.evaluate("() => { const e = document.querySelectorAll('.quote')[1]; window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 70) }")
+        pg.wait_for_selector(".tl")
+        pg.evaluate("() => { const e = document.querySelector('.tl'); window.scrollTo(0, e.closest('.card').getBoundingClientRect().top + window.scrollY - 70) }")
         pg.wait_for_timeout(300)
-        pg.screenshot(path=os.path.join(RAW, "4_body.png"))
-
+        pg.screenshot(path=os.path.join(RAW, "5_body.png"))
         if BOTH:
             pg.click(".switch button:has-text('お酒')")
         pg.click(".tab:has-text('記録')")
         pg.wait_for_selector(".chart")
-        pg.evaluate("() => { const e = document.querySelector('.chart'); window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 110) }")
+        pg.evaluate("() => { const e = document.querySelector('.peak') || document.querySelector('.chart'); window.scrollTo(0, e.closest('.card').getBoundingClientRect().top + window.scrollY - 70) }")
         pg.wait_for_timeout(300)
-        pg.screenshot(path=os.path.join(RAW, "5_graphs.png"))
+        pg.screenshot(path=os.path.join(RAW, "6_graphs.png"))
         if BOTH:
-            # はじめに選ぶ画面(記録を消した状態で開く)
             pg2 = b.new_context(viewport={"width": 430, "height": 932}, device_scale_factor=3, locale="ja-JP").new_page()
             pg2.goto(URL)
             pg2.wait_for_selector(".pick")
-            pg2.wait_for_timeout(300)
-            pg2.screenshot(path=os.path.join(RAW, "6_start.png"))
+            pg2.wait_for_timeout(400)
+            pg2.screenshot(path=os.path.join(RAW, "7_start.png"))
         b.close()
 
 
@@ -125,20 +124,28 @@ def rounded(im, r):
     return out
 
 
+def art(name):
+    return Image.open(os.path.join(REF, name + ".webp")).convert("RGBA")
+
+
 def compose(name, title, sub, W, H, out):
-    bg = Image.new("RGB", (W, H), PAPER)
-    d = ImageDraw.Draw(bg)
     s = W / 1290
-    # 右上の大きな円(日の出の印)
-    R = int(520 * s)
-    d.ellipse([W - R * 1.2, -R * 0.9, W + R * 0.8, R * 1.1], fill=SOFT)
-    ft = ImageFont.truetype(GOTHIC, int(92 * s))
-    fs = ImageFont.truetype(GOTHIC_M, int(50 * s))
-    y = int(150 * s)
+    bg = Image.new("RGB", (W, H), PAPER)
+    # 右上に朝日、下にやわらかいセージ
+    R = int(360 * s)
+    sun = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(sun).ellipse([W - R * 1.5, -R * 0.9, W + R * 0.5, R * 1.1], fill=SUN + (255,))
+    sun = sun.filter(ImageFilter.GaussianBlur(40 * s))
+    bg.paste(sun, (0, 0), sun)
+    d = ImageDraw.Draw(bg)
+    d.rectangle([0, int(H * 0.62), W, H], fill=SAGE)
+    ft = ImageFont.truetype(GOTHIC, int(90 * s))
+    fs = ImageFont.truetype(GOTHIC_M, int(46 * s))
+    y = int(140 * s)
     for line in title.split("\n"):
-        d.text((int(96 * s), y), line, font=ft, fill=INK)
-        y += int(124 * s)
-    d.text((int(100 * s), y + int(14 * s)), sub, font=fs, fill=ACCENT)
+        d.text((int(90 * s), y), line, font=ft, fill=INK)
+        y += int(122 * s)
+    d.text((int(94 * s), y + int(16 * s)), sub, font=fs, fill=GREEN)
     top = y + int(120 * s)
     shot = Image.open(os.path.join(RAW, name + ".png")).convert("RGB")
     avail_h = H - top - int(70 * s)
@@ -149,69 +156,53 @@ def compose(name, title, sub, W, H, out):
         sw = int(shot.size[0] * sh / shot.size[1])
     shot = shot.resize((sw, sh), Image.LANCZOS)
     x = (W - sw) // 2
-    # 影と枠
-    shadow = Image.new("RGBA", (sw + 40, sh + 40), (0, 0, 0, 0))
-    ImageDraw.Draw(shadow).rounded_rectangle([20, 26, sw + 20, sh + 20], int(56 * s), fill=(0, 0, 0, 40))
-    bg.paste(shadow, (x - 20, top - 20), shadow)
-    frame = rounded(shot, int(56 * s))
+    shadow = Image.new("RGBA", (sw + 80, sh + 80), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle([40, 50, sw + 40, sh + 40], int(60 * s), fill=(90, 70, 30, 60))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(18 * s))
+    bg.paste(shadow, (x - 40, top - 40), shadow)
+    frame = rounded(shot, int(60 * s))
     bg.paste(frame, (x, top), frame)
-    d.rounded_rectangle([x, top, x + sw, top + sh], int(56 * s), outline=(210, 210, 205), width=max(2, int(3 * s)))
+    d.rounded_rectangle([x, top, x + sw, top + sh], int(60 * s), outline=(226, 218, 198), width=max(2, int(4 * s)))
     bg.save(out)
 
 
 def icon(size=1024):
-    S = 1024
-    im = Image.new("RGB", (S, S), PAPER)
-    d = ImageDraw.Draw(im)
-    # 地平線と、のぼる日
-    hz = 640
-    d.ellipse([212, hz - 300, 812, hz + 300], fill=ACCENT)
-    d.rectangle([0, hz, S, S], fill=PAPER)
-    d.line([(120, hz), (904, hz)], fill=INK, width=22)
-    # 光の線
-    import math
-    for a in (-60, -30, 0, 30, 60):
-        r1, r2 = 360, 430
-        t = math.radians(a - 90)
-        d.line([(512 + r1 * math.cos(t), hz + r1 * math.sin(t)), (512 + r2 * math.cos(t), hz + r2 * math.sin(t))], fill=ACCENT, width=26)
-    if BOTH:
-        # 左に伏せた盃、右に半分に折ったたばこ(お酒もたばこも)
-        d.chord([200, 722, 470, 862], 180, 360, fill=(255, 255, 255), outline=INK, width=11)
-        d.rounded_rectangle([302, 704, 368, 736], 7, fill=INK)
-        d.line([(190, 792), (480, 792)], fill=INK, width=11)
-        d.rounded_rectangle([560, 748, 680, 796], 12, fill=(255, 255, 255), outline=INK, width=10)
-        d.rounded_rectangle([706, 748, 826, 796], 12, fill=(255, 255, 255), outline=INK, width=10)
-        d.rectangle([776, 753, 821, 791], fill=(214, 160, 110))
-    elif SMOKE:
-        # 地面に置いた、半分に折ったたばこ(白い棒2本)
-        d.rounded_rectangle([250, 738, 480, 792], 14, fill=(255, 255, 255), outline=INK, width=10)
-        d.rounded_rectangle([540, 738, 770, 792], 14, fill=(255, 255, 255), outline=INK, width=10)
-        d.rectangle([700, 743, 765, 787], fill=(214, 160, 110))
-    else:
-        # 伏せた盃(もう飲まない、の印)
-        # 縁を下にした浅い盃。高台(小さな台)が上に来る
-        d.chord([312, 712, 712, 892], 180, 360, fill=(255, 255, 255), outline=INK, width=12)
-        d.rounded_rectangle([462, 690, 562, 728], 8, fill=INK)
-        d.line([(300, 802), (724, 802)], fill=INK, width=12)
-    return im.resize((size, size), Image.LANCZOS)
+    src = Image.open(os.path.join(ROOT, "store", "icon_source_1024.png")).convert("RGB")
+    return src.crop((40, 40, 984, 984)).resize((size, size), Image.LANCZOS)
 
 
 def feature():
     W, H = 1024, 500
     im = Image.new("RGB", (W, H), PAPER)
+    land = art("hero_park" if SMOKE else "hero_lake").convert("RGB")
+    k = max(W * 0.62 / land.width, H / land.height)
+    land = land.resize((int(land.width * k), int(land.height * k)), Image.LANCZOS)
+    im.paste(land, (W - land.width + 30, (H - land.height) // 2))
+    # 左を生成りでぼかしてつなぐ
+    fade = Image.new("L", (W, H), 0)
+    fd = ImageDraw.Draw(fade)
+    for x in range(W):
+        a = 255 if x < 400 else max(0, int(255 * (1 - (x - 400) / 220)))
+        fd.line([(x, 0), (x, H)], fill=a)
+    im.paste(Image.new("RGB", (W, H), PAPER), (0, 0), fade)
     d = ImageDraw.Draw(im)
-    d.ellipse([620, -120, 1180, 440], fill=SOFT)
-    ic = icon(300)
-    im.paste(rounded(ic.convert("RGB"), 64), (660, 100), rounded(ic.convert("RGB"), 64))
-    d.text((64, 120), "やめ日和", font=ImageFont.truetype(MINCHO, 104), fill=ACCENT)
-    d.text((70, 262), f"{FL['thing']}をやめた日を、数えていく。", font=ImageFont.truetype(GOTHIC, 38), fill=INK)
-    d.text((70, 322), f"{FL['verbUse']}日があっても、通算は消えない。", font=ImageFont.truetype(GOTHIC_M, 32), fill=INK2)
-    d.text((70, 380), "広告なし・登録なし・買い切り", font=ImageFont.truetype(GOTHIC_M, 28), fill=ACCENT)
+    ic = rounded(icon(150), 34)
+    im.paste(ic, (64, 70), ic)
+    d.text((236, 92), "やめ日和", font=ImageFont.truetype(GOTHIC, 86), fill=INK)
+    d.text((70, 250), "やめる。続ける。きっと、いい日がくる。", font=ImageFont.truetype(GOTHIC, 34), fill=GREEN)
+    d.text((70, 314), "たばこをやめた日を、数えていく。" if SMOKE else "お酒もたばこも、やめた日を数える。", font=ImageFont.truetype(GOTHIC_M, 30), fill=INK2)
+    d.text((70, 366), "責めない記録・5分タイマー・出典つきの体の目安", font=ImageFont.truetype(GOTHIC_M, 26), fill=INK2)
+    d.text((70, 414), "広告なし・登録なし", font=ImageFont.truetype(GOTHIC_M, 26), fill=CORAL)
     return im
 
 
 if "--no-capture" not in sys.argv:
+    for f in os.listdir(RAW):
+        os.remove(os.path.join(RAW, f))
     capture()
+for folder in (os.path.join(STORE, "ios"), os.path.join(PLAY, "screenshots")):
+    for f in os.listdir(folder):
+        os.remove(os.path.join(folder, f))
 for name, title, sub in CAPTIONS:
     compose(name, title, sub, 1290, 2796, os.path.join(STORE, "ios", f"iphone_{name}.png"))
     compose(name, title, sub, 1080, 1920, os.path.join(PLAY, "screenshots", f"play_{name}.png"))

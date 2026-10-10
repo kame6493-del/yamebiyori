@@ -45,3 +45,6 @@ capacitor.config.json
 tools/
 research/*.html
 research/*.pdf
+
+# 作り直しの作業場所(見本の切り出しの確認など)
+work/
