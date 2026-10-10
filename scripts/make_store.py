@@ -2,7 +2,10 @@
 1) 見本データで画面を撮る(430x932 ×3 = 1290x2796)
 2) 見出しを付けて iPhone 用 1290x2796 と Play 用 1080x1920 にする(値段・「無料」は写さない)
 3) アイコン 1024 / Play 512(持ち主の絵 store/icon_source_1024.png の縁を除いた物)/ フィーチャー 1024x500
-出力: store/<flavor>/ と store/<flavor>/play/"""
+出力: store/<flavor>/ と store/<flavor>/play/
+撮り直さず組むだけ: python scripts/make_store.py --no-capture [--flavor both|tabako]
+2026-10-10 持ち主「Claude 特有の背景をなくして」: 生成りの無地をやめ、上は濃い若葉色(たばこ版は朝の青緑)の帯に白い HG教科書体(HGRKK)、
+下はアプリの朝日の絵(お酒もたばこも=湖・たばこ=公園)を敷く。元の画像は store/_cream_backup_2026-10-10/"""
 import json
 import os
 import sys
@@ -15,6 +18,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 FL = json.load(open(os.path.join(ROOT, "src", "flavor.current.json"), encoding="utf-8"))
 KEY = FL["key"]
+if "--flavor" in sys.argv:
+    KEY = sys.argv[sys.argv.index("--flavor") + 1]
+if URL.startswith("--"):
+    URL = "http://localhost:5291/"
 STORE = os.path.join(ROOT, "store", KEY)
 RAW = os.path.join(STORE, "raw")
 PLAY = os.path.join(STORE, "play")
@@ -23,8 +30,8 @@ for d in (STORE, RAW, PLAY, os.path.join(STORE, "ios"), os.path.join(PLAY, "scre
     os.makedirs(d, exist_ok=True)
 
 GOTHIC = "C:/Windows/Fonts/YuGothB.ttc"
+POP = "C:/Windows/Fonts/HGRKK.TTC"
 GOTHIC_M = "C:/Windows/Fonts/YuGothM.ttc"
-PAPER = (251, 247, 236)
 SAGE = (232, 241, 231)
 SUN = (250, 228, 170)
 GREEN = (90, 148, 71)
@@ -33,6 +40,11 @@ INK = (58, 58, 51)
 INK2 = (95, 93, 84)
 SMOKE = KEY == "tabako"
 BOTH = KEY == "both"
+# 帯の色と地の絵(both と tabako で見分けがつくように)
+if SMOKE:
+    BAND, BAND2, ACCENT, BG_ART = (30, 92, 104), (52, 128, 128), (255, 222, 150), "hero_park"
+else:
+    BAND, BAND2, ACCENT, BG_ART = (46, 98, 50), (86, 140, 62), (255, 214, 130), "hero_lake"
 
 if BOTH:
     CAPTIONS = [
@@ -128,25 +140,63 @@ def art(name):
     return Image.open(os.path.join(REF, name + ".webp")).convert("RGBA")
 
 
+def cover(im, W, H, ax=0.5, ay=0.5):
+    k = max(W / im.width, H / im.height)
+    im = im.resize((int(im.width * k) + 1, int(im.height * k) + 1), Image.LANCZOS)
+    x, y = int((im.width - W) * ax), int((im.height - H) * ay)
+    return im.crop((x, y, x + W, y + H))
+
+
+def band_layer(W, H, s, top_h):
+    """上の濃い帯(丘のようにゆるく波打つ下端・上から下へ少し明るく)"""
+    lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    grad = Image.new("RGB", (W, top_h + int(80 * s)))
+    gd = ImageDraw.Draw(grad)
+    for y in range(grad.height):
+        k = y / grad.height
+        gd.line([(0, y), (W, y)], fill=tuple(int(BAND[i] + (BAND2[i] - BAND[i]) * k) for i in range(3)))
+    m = Image.new("L", grad.size, 0)
+    md = ImageDraw.Draw(m)
+    pts = [(0, 0), (W, 0)]
+    import math
+    for x in list(range(W, 0, -8)) + [0]:
+        pts.append((x, top_h + int(28 * s * math.sin(x / W * math.pi * 1.6 + 0.6))))
+    md.polygon(pts, fill=255)
+    lay.paste(grad, (0, 0), m)
+    return lay
+
+
 def compose(name, title, sub, W, H, out):
     s = W / 1290
-    bg = Image.new("RGB", (W, H), PAPER)
-    # 右上に朝日、下にやわらかいセージ
-    R = int(360 * s)
-    sun = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(sun).ellipse([W - R * 1.5, -R * 0.9, W + R * 0.5, R * 1.1], fill=SUN + (255,))
-    sun = sun.filter(ImageFilter.GaussianBlur(40 * s))
-    bg.paste(sun, (0, 0), sun)
-    d = ImageDraw.Draw(bg)
-    d.rectangle([0, int(H * 0.62), W, H], fill=SAGE)
-    ft = ImageFont.truetype(GOTHIC, int(90 * s))
     fs = ImageFont.truetype(GOTHIC_M, int(46 * s))
-    y = int(140 * s)
-    for line in title.split("\n"):
-        d.text((int(90 * s), y), line, font=ft, fill=INK)
-        y += int(122 * s)
-    d.text((int(94 * s), y + int(16 * s)), sub, font=fs, fill=GREEN)
-    top = y + int(120 * s)
+    lines = title.split(chr(10))
+    # 右上の若葉にかからない幅に収める
+    size = int(100 * s)
+    while True:
+        ft = ImageFont.truetype(POP, size)
+        if max(ft.getlength(t) for t in lines) <= W - int(90 * s) - int(270 * s) or size < int(70 * s):
+            break
+        size -= 2
+    y0 = int(150 * s)
+    lh = int(132 * s)
+    top_h = y0 + lh * len(lines) + int(110 * s)
+    # 地: アプリの朝日の絵を全面に(ぼかし)、上に濃い帯
+    bg = cover(art(BG_ART).convert("RGB"), W, H, 0.5, 0.75).filter(ImageFilter.GaussianBlur(5 * s))
+    bg = bg.convert("RGBA")
+    bg.alpha_composite(Image.new("RGBA", (W, H), BAND2 + (46,)))  # 絵を帯の色に少し寄せる(白っぽい空を残さない)
+    bg.alpha_composite(band_layer(W, H, s, top_h))
+    # 帯の右上に若葉
+    sp = art("logo_sprout")
+    sw0 = int(180 * s)
+    sp = sp.resize((sw0, int(sp.height * sw0 / sp.width)), Image.LANCZOS)
+    bg.alpha_composite(sp, (W - sw0 - int(70 * s), int(70 * s)))
+    d = ImageDraw.Draw(bg)
+    y = y0
+    for line in lines:
+        d.text((int(90 * s), y), line, font=ft, fill=(255, 255, 255), stroke_width=max(1, int(2 * s)), stroke_fill=(255, 255, 255))
+        y += lh
+    d.text((int(94 * s), y + int(6 * s)), sub, font=fs, fill=ACCENT)
+    top = top_h + int(70 * s)
     shot = Image.open(os.path.join(RAW, name + ".png")).convert("RGB")
     avail_h = H - top - int(70 * s)
     sw = int(W * 0.80)
@@ -157,13 +207,14 @@ def compose(name, title, sub, W, H, out):
     shot = shot.resize((sw, sh), Image.LANCZOS)
     x = (W - sw) // 2
     shadow = Image.new("RGBA", (sw + 80, sh + 80), (0, 0, 0, 0))
-    ImageDraw.Draw(shadow).rounded_rectangle([40, 50, sw + 40, sh + 40], int(60 * s), fill=(90, 70, 30, 60))
+    ImageDraw.Draw(shadow).rounded_rectangle([40, 50, sw + 40, sh + 40], int(60 * s), fill=(20, 50, 30, 90))
     shadow = shadow.filter(ImageFilter.GaussianBlur(18 * s))
-    bg.paste(shadow, (x - 40, top - 40), shadow)
+    bg.alpha_composite(shadow, (x - 40, top - 40))
     frame = rounded(shot, int(60 * s))
-    bg.paste(frame, (x, top), frame)
-    d.rounded_rectangle([x, top, x + sw, top + sh], int(60 * s), outline=(226, 218, 198), width=max(2, int(4 * s)))
-    bg.save(out)
+    bg.alpha_composite(frame, (x, top))
+    d = ImageDraw.Draw(bg)
+    d.rounded_rectangle([x, top, x + sw, top + sh], int(60 * s), outline=(255, 255, 255), width=max(3, int(6 * s)))
+    bg.convert("RGB").save(out)
 
 
 def icon(size=1024):
@@ -173,26 +224,28 @@ def icon(size=1024):
 
 def feature():
     W, H = 1024, 500
-    im = Image.new("RGB", (W, H), PAPER)
     land = art("hero_park" if SMOKE else "hero_lake").convert("RGB")
-    k = max(W * 0.62 / land.width, H / land.height)
-    land = land.resize((int(land.width * k), int(land.height * k)), Image.LANCZOS)
-    im.paste(land, (W - land.width + 30, (H - land.height) // 2))
-    # 左を生成りでぼかしてつなぐ
+    im = cover(land, W, H, 0.5, 0.5)
+    # 左を帯の色でぼかしてつなぐ(文字は白)
     fade = Image.new("L", (W, H), 0)
     fd = ImageDraw.Draw(fade)
     for x in range(W):
-        a = 255 if x < 400 else max(0, int(255 * (1 - (x - 400) / 220)))
+        a = 245 if x < 540 else max(0, int(245 * (1 - (x - 540) / 220)))
         fd.line([(x, 0), (x, H)], fill=a)
-    im.paste(Image.new("RGB", (W, H), PAPER), (0, 0), fade)
+    col = Image.new("RGB", (W, H))
+    cd = ImageDraw.Draw(col)
+    for y in range(H):
+        k = y / H
+        cd.line([(0, y), (W, y)], fill=tuple(int(BAND[i] + (BAND2[i] - BAND[i]) * k) for i in range(3)))
+    im.paste(col, (0, 0), fade)
     d = ImageDraw.Draw(im)
     ic = rounded(icon(150), 34)
     im.paste(ic, (64, 70), ic)
-    d.text((236, 92), "やめ日和", font=ImageFont.truetype(GOTHIC, 86), fill=INK)
-    d.text((70, 250), "やめる。続ける。きっと、いい日がくる。", font=ImageFont.truetype(GOTHIC, 34), fill=GREEN)
-    d.text((70, 314), "たばこをやめた日を、数えていく。" if SMOKE else "お酒もたばこも、やめた日を数える。", font=ImageFont.truetype(GOTHIC_M, 30), fill=INK2)
-    d.text((70, 366), "責めない記録・5分タイマー・出典つきの体の目安", font=ImageFont.truetype(GOTHIC_M, 26), fill=INK2)
-    d.text((70, 414), "広告なし・登録なし", font=ImageFont.truetype(GOTHIC_M, 26), fill=CORAL)
+    d.text((236, 92), "やめ日和", font=ImageFont.truetype(POP, 92), fill=(255, 255, 255), stroke_width=2, stroke_fill=(255, 255, 255))
+    d.text((70, 250), "やめる。続ける。きっと、いい日がくる。", font=ImageFont.truetype(GOTHIC, 30), fill=ACCENT)
+    d.text((70, 314), "たばこをやめた日を、数えていく。" if SMOKE else "お酒もたばこも、やめた日を数える。", font=ImageFont.truetype(GOTHIC_M, 30), fill=(255, 255, 255))
+    d.text((70, 366), "責めない記録・5分タイマー・出典つきの体の目安", font=ImageFont.truetype(GOTHIC_M, 26), fill=(232, 240, 228))
+    d.text((70, 414), "広告なし・登録なし", font=ImageFont.truetype(GOTHIC_M, 26), fill=ACCENT)
     return im
 
 
