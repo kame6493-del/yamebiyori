@@ -48,3 +48,7 @@ research/*.pdf
 
 # 作り直しの作業場所(見本の切り出しの確認など)
 work/
+
+# 宣伝の動画・サムネ(ずんだもんの立ち絵を合成するので公開リポジトリに入れない)
+store/promo/
+store/_cream_backup_*/promo/
